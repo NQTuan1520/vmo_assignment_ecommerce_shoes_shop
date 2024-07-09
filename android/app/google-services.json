@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "359520686837",
+    "project_id": "vmo-assignment",
+    "storage_bucket": "vmo-assignment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359520686837:android:9174d1d8244a02f093ebbc",
+        "android_client_info": {
+          "package_name": "com.example.vmo_assignment_ecommerce_shoes_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359520686837-nqrg5psldukbf93nncl3k4m6ame927uq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vmo_assignment_ecommerce_shoes_shop",
+            "certificate_hash": "10f20242bc497a53c924ae1505277782fb0a2eda"
+          }
+        },
+        {
+          "client_id": "359520686837-mq4rn9bqvlq9qihe9an1u02vbpb9fb54.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZTy1wryI_iMkJMk0GMx185pvSms8cST0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359520686837-mq4rn9bqvlq9qihe9an1u02vbpb9fb54.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "359520686837-dipohgf00vpdpeess26tumsobspb0tq6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vmoAssignmentEcommerceShoesShop"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
