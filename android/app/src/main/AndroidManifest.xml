@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:label="vmo_assignment_ecommerce_shoes_shop"
+        android:label="Blunify"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

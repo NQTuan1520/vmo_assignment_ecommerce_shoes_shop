@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../domain/home/products/products_detail/entity/product_data_entity.dart';
 import '../../product_detail/product_detail_args.dart';
-import '../../product_detail/ui/product_detail_screen.dart';
 
 class ProductItemWidget extends StatelessWidget {
   final BuildContext context;
@@ -17,7 +16,7 @@ class ProductItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(
-          ProductDetailScreen.routeName,
+          '/product_detail',
           arguments: ProductDetailArgs(product: product),
         );
       },

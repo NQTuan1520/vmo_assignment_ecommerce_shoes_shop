@@ -25,129 +25,124 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => OnboardingBloc(),
-      child: BlocBuilder<OnboardingBloc, OnboardingState>(
-        builder: (context, state) {
-          return Scaffold(
-            body: Stack(
-              children: [
-                Positioned(
-                  bottom: 250.h,
-                  left: 0,
-                  right: 0,
-                  top: 0,
-                  child: SvgPicture.asset(
-                    Assets.imagesNike,
-                    colorFilter: ColorFilter.mode(Colors.grey[200]!, BlendMode.srcIn),
+    return BlocBuilder<OnboardingBloc, OnboardingState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: Stack(
+            children: [
+              Positioned(
+                bottom: 250.h,
+                left: 0,
+                right: 0,
+                top: 0,
+                child: SvgPicture.asset(
+                  Assets.imagesNike,
+                  colorFilter: ColorFilter.mode(Colors.grey[200]!, BlendMode.srcIn),
+                ),
+              ),
+              Positioned(
+                bottom: 220.h,
+                left: 0,
+                right: 0,
+                top: 0,
+                child: Image.asset(Assets.imagesOnboardingBubbles),
+              ),
+              PageView(
+                controller: _controller,
+                onPageChanged: (index) {
+                  context.read<OnboardingBloc>().add(UpdateCurrentPage(index));
+                },
+                children: [
+                  PageWidget(
+                    imageUrl: Assets.imagesOnboarding1,
+                    title: "title_onboarding_1".tr(),
+                    description: "description_onboarding_1".tr(),
+                  ),
+                  PageWidget(
+                    imageUrl: Assets.imagesOnboarding2,
+                    title: "title_onboarding_2".tr(),
+                    description: "description_onboarding_2".tr(),
+                  ),
+                  PageWidget(
+                    imageUrl: Assets.imagesOnboarding3,
+                    title: "title_onboarding_3".tr(),
+                    description: "description_onboarding_3".tr(),
+                  ),
+                ],
+              ),
+              Positioned(
+                top: 50.h,
+                right: 10.w,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/log_in');
+                  },
+                  child: Text(
+                    "Skip".tr(),
+                    style: TextStyle(fontSize: 16.sp),
                   ),
                 ),
-                Positioned(
-                  bottom: 220.h,
-                  left: 0,
-                  right: 0,
-                  top: 0,
-                  child: Image.asset(Assets.imagesOnboardingBubbles),
-                ),
-                PageView(
-                  controller: _controller,
-                  onPageChanged: (index) {
-                    context.read<OnboardingBloc>().add(UpdateCurrentPage(index));
-                  },
+              ),
+              Positioned(
+                bottom: 35.h,
+                left: 10.w,
+                right: 0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    PageWidget(
-                      imageUrl: Assets.imagesOnboarding1,
-                      title: "title_onboarding_1".tr(),
-                      description: "description_onboarding_1".tr(),
-                    ),
-                    PageWidget(
-                      imageUrl: Assets.imagesOnboarding2,
-                      title: "title_onboarding_2".tr(),
-                      description: "description_onboarding_2".tr(),
-                    ),
-                    PageWidget(
-                      imageUrl: Assets.imagesOnboarding3,
-                      title: "title_onboarding_3".tr(),
-                      description: "description_onboarding_3".tr(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: List.generate(3, (index) {
+                        return DotWidget(
+                          currentPage: state.currentPage,
+                          index: index,
+                          context: context,
+                          colorTheme: colorTheme,
+                        );
+                      }),
                     ),
                   ],
                 ),
-                Positioned(
-                  top: 50.h,
-                  right: 10.w,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/log_in');
-                    },
-                    child: Text(
-                      "Skip".tr(),
-                      style: TextStyle(fontSize: 16.sp),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 35.h,
-                  left: 10.w,
-                  right: 0,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: List.generate(3, (index) {
-                          return DotWidget(
-                            currentPage: state.currentPage,
-                            index: index,
-                            context: context,
+              ),
+              Positioned(
+                right: 5.w,
+                bottom: 20.h,
+                child: Row(
+                  children: [
+                    state.currentPage == 0
+                        ? OnboardingCustomButtonWidget(
                             colorTheme: colorTheme,
-                          );
-                        }),
-                      ),
-                    ],
-                  ),
+                            textButton: 'next'.tr(),
+                            onTap: () {
+                              _controller.nextPage(duration: const Duration(milliseconds: 3), curve: Curves.elasticIn);
+                            },
+                          )
+                        : Container(),
+                    state.currentPage == 1
+                        ? OnboardingCustomButtonWidget(
+                            colorTheme: colorTheme,
+                            textButton: 'next'.tr(),
+                            onTap: () {
+                              _controller.nextPage(duration: const Duration(milliseconds: 3), curve: Curves.elasticIn);
+                            },
+                          )
+                        : Container(),
+                    state.currentPage == 2
+                        ? OnboardingCustomButtonWidget(
+                            colorTheme: colorTheme,
+                            textButton: 'get_started'.tr(),
+                            onTap: () {
+                              Navigator.pushNamed(context, '/log_in');
+                            },
+                          )
+                        : Container(),
+                  ],
                 ),
-                Positioned(
-                  right: 5.w,
-                  bottom: 20.h,
-                  child: Row(
-                    children: [
-                      state.currentPage == 0
-                          ? OnboardingCustomButtonWidget(
-                              colorTheme: colorTheme,
-                              textButton: 'next'.tr(),
-                              onTap: () {
-                                _controller.nextPage(
-                                    duration: const Duration(milliseconds: 3), curve: Curves.elasticIn);
-                              },
-                            )
-                          : Container(),
-                      state.currentPage == 1
-                          ? OnboardingCustomButtonWidget(
-                              colorTheme: colorTheme,
-                              textButton: 'next'.tr(),
-                              onTap: () {
-                                _controller.nextPage(
-                                    duration: const Duration(milliseconds: 3), curve: Curves.elasticIn);
-                              },
-                            )
-                          : Container(),
-                      state.currentPage == 2
-                          ? OnboardingCustomButtonWidget(
-                              colorTheme: colorTheme,
-                              textButton: 'get_started'.tr(),
-                              onTap: () {
-                                Navigator.pushNamed(context, '/log_in');
-                              },
-                            )
-                          : Container(),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
-        },
-      ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

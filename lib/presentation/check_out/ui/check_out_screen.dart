@@ -6,7 +6,6 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/check_out/widge
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/check_out/widget/section_title_widget.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/check_out/widget/text_form_field_custom_widget.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/common/widgets/custom_button_widget.dart';
-import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/main/ui/main_screen.dart';
 
 import '../../../data/check_out/request/capture_order_request.dart';
 import '../../../domain/check_out/entity/get_token_check_out_entity.dart';
@@ -243,7 +242,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   void _onGoToHome() {
     context.read<CheckOutBloc>().add(ResetCheckOut());
     context.read<CartBloc>().add(ResetCart());
-    Navigator.pushNamedAndRemoveUntil(context, MainScreen.routeName, (Route<dynamic> route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, '/main', (Route<dynamic> route) => false);
   }
 
   void _setShippingInfo(ShippingState shippingState) {

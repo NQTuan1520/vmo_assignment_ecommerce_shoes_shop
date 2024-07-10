@@ -1,7 +1,6 @@
 // presentation/utils/ui_helpers.dart
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/auth/login/ui/login_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class LoginUIHelpers {
@@ -25,7 +24,7 @@ class LoginUIHelpers {
                 Navigator.of(context).pop();
                 Navigator.pushNamed(
                   context,
-                  LoginScreen.routeName,
+                  '/log_in',
                   arguments: targetRoute,
                 );
               },

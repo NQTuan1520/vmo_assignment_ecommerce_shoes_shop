@@ -25,115 +25,118 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Account_and_Settings".tr(),
-          style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        backgroundColor: colorTheme.blueBottomBar,
-        elevation: 4.0,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.all(16.w),
-              children: [
-                Text(
-                  "Account".tr(),
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 10.h),
-                ListTile(
-                  leading: Icon(Icons.person, size: 24.sp),
-                  title: Text("Profile_Settings".tr(), style: TextStyle(fontSize: 16.sp)),
-                  trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
-                  onTap: () {
-                    Navigator.pushNamed(context, '/profile');
-                  },
-                ),
-                Divider(thickness: 1.5.h),
-                ListTile(
-                  leading: Icon(Icons.local_shipping, size: 24.sp),
-                  title: Text("Shipping_Info".tr(), style: TextStyle(fontSize: 16.sp)),
-                  trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
-                  onTap: () {
-                    Navigator.pushNamed(context, '/shipping_info');
-                  },
-                ),
-                SizedBox(height: 18.h),
-                Text(
-                  "App_Settings".tr(),
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 10.h),
-                BlocBuilder<ThemeBloc, ThemeState>(
-                  builder: (context, state) {
-                    return SwitchListTile(
-                      title: Text("Dark_Mode".tr(), style: TextStyle(fontSize: 16.sp)),
-                      value: state.isDarkMode,
-                      onChanged: (bool value) {
-                        context.read<ThemeBloc>().add(ThemeChanged(isDarkMode: value));
-                      },
-                    );
-                  },
-                ),
-                BlocBuilder<LanguageBloc, LanguageState>(
-                  builder: (context, state) {
-                    final supportedLocales = context.supportedLocales;
-
-                    final items = supportedLocales.map((Locale locale) {
-                      return DropdownMenuItem<Locale>(
-                        value: locale,
-                        child: Text(
-                          locale.languageCode == 'en' ? 'English' : 'Vietnamese',
-                          style: TextStyle(fontSize: 16.sp),
-                        ), // Display language name
-                      );
-                    }).toList();
-
-                    final currentValue = items
-                        .firstWhere(
-                          (item) => item.value == state.locale,
-                          orElse: () => items.first,
-                        )
-                        .value;
-
-                    return ListTile(
-                      title: Text("Change_Language".tr(), style: TextStyle(fontSize: 16.sp)),
-                      trailing: DropdownButton<Locale>(
-                        value: currentValue,
-                        onChanged: (Locale? newValue) {
-                          if (newValue != null && supportedLocales.contains(newValue)) {
-                            _showLanguageChangeDialog(newValue);
-                          }
-                        },
-                        items: items,
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              "Account_and_Settings".tr(),
+              style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            backgroundColor: state.isDarkMode ? colorTheme.blueBottomBarDark : colorTheme.blueBottomBar,
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.all(16.w),
+                  children: [
+                    Text(
+                      "Account".tr(),
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
                       ),
-                    );
-                  },
+                    ),
+                    SizedBox(height: 10.h),
+                    ListTile(
+                      leading: Icon(Icons.person, size: 24.sp),
+                      title: Text("Profile_Settings".tr(), style: TextStyle(fontSize: 16.sp)),
+                      trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/profile');
+                      },
+                    ),
+                    Divider(thickness: 1.5.h),
+                    ListTile(
+                      leading: Icon(Icons.local_shipping, size: 24.sp),
+                      title: Text("Shipping_Info".tr(), style: TextStyle(fontSize: 16.sp)),
+                      trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/shipping_info');
+                      },
+                    ),
+                    SizedBox(height: 18.h),
+                    Text(
+                      "App_Settings".tr(),
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    BlocBuilder<ThemeBloc, ThemeState>(
+                      builder: (context, state) {
+                        return SwitchListTile(
+                          title: Text("Dark_Mode".tr(), style: TextStyle(fontSize: 16.sp)),
+                          value: state.isDarkMode,
+                          onChanged: (bool value) {
+                            context.read<ThemeBloc>().add(ThemeChanged(isDarkMode: value));
+                          },
+                        );
+                      },
+                    ),
+                    BlocBuilder<LanguageBloc, LanguageState>(
+                      builder: (context, state) {
+                        final supportedLocales = context.supportedLocales;
+
+                        final items = supportedLocales.map((Locale locale) {
+                          return DropdownMenuItem<Locale>(
+                            value: locale,
+                            child: Text(
+                              locale.languageCode == 'en' ? 'English' : 'Vietnamese',
+                              style: TextStyle(fontSize: 16.sp),
+                            ), // Display language name
+                          );
+                        }).toList();
+
+                        final currentValue = items
+                            .firstWhere(
+                              (item) => item.value == state.locale,
+                              orElse: () => items.first,
+                            )
+                            .value;
+
+                        return ListTile(
+                          title: Text("Change_Language".tr(), style: TextStyle(fontSize: 16.sp)),
+                          trailing: DropdownButton<Locale>(
+                            value: currentValue,
+                            onChanged: (Locale? newValue) {
+                              if (newValue != null && supportedLocales.contains(newValue)) {
+                                _showLanguageChangeDialog(newValue);
+                              }
+                            },
+                            items: items,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 20.h),
+                child: ElevatedButton(
+                  onPressed: () {
+                    _showSignOutDialog(context);
+                  },
+                  child: Text("Sign_Out".tr(), style: TextStyle(fontSize: 18.sp)),
+                ),
+              ),
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 20.h),
-            child: ElevatedButton(
-              onPressed: () {
-                _showSignOutDialog(context);
-              },
-              child: Text("Sign_Out".tr(), style: TextStyle(fontSize: 18.sp)),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

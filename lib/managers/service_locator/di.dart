@@ -25,6 +25,7 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/bloc/home/
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/order/bloc/order_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/profile/bloc%20/profile_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/search/bloc/search_bloc.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/settings/bloc/language/language_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/shipping_info/bloc/shipping_bloc.dart';
 
 import '../../data/auth/repository/auth_repository_impl.dart';
@@ -268,5 +269,9 @@ void setup() {
     () => SignUpBloc(
       authUseCase: getIt<AuthUseCase>(),
     ),
+  );
+
+  getIt.registerFactory<LanguageBloc>(
+    () => LanguageBloc(),
   );
 }

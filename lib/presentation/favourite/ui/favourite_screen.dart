@@ -7,6 +7,7 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/common/widgets/
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/favourite/widgets/favorites_grid_widget.dart';
 
 import '../../../managers/enum/enum.dart';
+import '../../settings/bloc/theme/theme_bloc.dart';
 import '../bloc/favourite_bloc.dart';
 
 class FavouritesScreen extends StatefulWidget {
@@ -29,31 +30,34 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "favorites".tr(),
-          style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        backgroundColor: colorTheme.blueBottomBar,
-        elevation: 4.0,
-      ),
-      body: BlocBuilder<FavouriteBloc, FavouriteState>(
-        builder: (context, state) {
-          if (state.status == Status.loading) {
-            return ShimmerWidget(height: double.infinity.h, width: double.infinity.w);
-          } else if (state.status == Status.success && state.favourites!.isEmpty) {
-            return Center(child: Text("no_favorites".tr(), style: TextStyle(fontSize: 18.sp)));
-          } else if (state.status == Status.success) {
-            return FavoritesGridWidget(favorites: state.favourites!);
-          } else if (state.status == Status.failure) {
-            return Center(
-                child: Text(state.errorMessage ?? "fail_to_load_favorite".tr(), style: TextStyle(fontSize: 18.sp)));
-          } else {
-            return Center(child: Text("unknown_state".tr(), style: TextStyle(fontSize: 18.sp)));
-          }
-        },
-      ),
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              "favorites".tr(),
+              style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            backgroundColor: state.isDarkMode ? colorTheme.blueBottomBarDark : colorTheme.blueBottomBar,
+          ),
+          body: BlocBuilder<FavouriteBloc, FavouriteState>(
+            builder: (context, state) {
+              if (state.status == Status.loading) {
+                return ShimmerWidget(height: double.infinity.h, width: double.infinity.w);
+              } else if (state.status == Status.success && state.favourites!.isEmpty) {
+                return Center(child: Text("no_favorites".tr(), style: TextStyle(fontSize: 18.sp)));
+              } else if (state.status == Status.success) {
+                return FavoritesGridWidget(favorites: state.favourites!);
+              } else if (state.status == Status.failure) {
+                return Center(
+                    child: Text(state.errorMessage ?? "fail_to_load_favorite".tr(), style: TextStyle(fontSize: 18.sp)));
+              } else {
+                return Center(child: Text("unknown_state".tr(), style: TextStyle(fontSize: 18.sp)));
+              }
+            },
+          ),
+        );
+      },
     );
   }
 }

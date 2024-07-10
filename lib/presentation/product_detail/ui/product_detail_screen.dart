@@ -27,8 +27,6 @@ class ProductDetailScreen extends StatefulWidget {
     this.showBottomSheet = false,
   });
 
-  static const String routeName = '/product_detail';
-
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
@@ -100,32 +98,35 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        return BlocConsumer<VariantsBloc, VariantsState>(
-          listenWhen: (previous, current) =>
-              previous.status != current.status && previous.isAddingToCart != current.isAddingToCart,
-          listener: (context, state) {
-            if (state.status == Status.success && !state.isAddingToCart) {
-              ToastUtils.showSuccessToast(message: "Item_added_to_cart_successfully".tr());
-              Navigator.of(context).pop();
-            } else if (state.status == Status.failure && !state.isAddingToCart) {
-              ToastUtils.showErrorToast(message: state.errorMessage ?? "Error_adding_to_cart".tr());
-            }
-          },
-          builder: (context, state) {
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Select_Size_and_Color".tr(),
-                    style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 16.h),
-                  VariantOptionsWidget(product: widget.product),
-                  state.status != Status.loading
-                      ? Row(
+        return BlocProvider.value(
+          value: context.read<VariantsBloc>(),
+          child: BlocConsumer<VariantsBloc, VariantsState>(
+            listenWhen: (previous, current) =>
+                previous.status != current.status && previous.isAddingToCart != current.isAddingToCart,
+            listener: (context, state) {
+              if (state.status == Status.success && !state.isAddingToCart) {
+                ToastUtils.showSuccessToast(message: "Item_added_to_cart_successfully".tr());
+                Navigator.of(context).pop();
+              } else if (state.status == Status.failure && !state.isAddingToCart) {
+                ToastUtils.showErrorToast(message: state.errorMessage ?? "Error_adding_to_cart".tr());
+              }
+            },
+            builder: (context, state) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Select_Size_and_Color".tr(),
+                        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 16.h),
+                      VariantOptionsWidget(product: widget.product),
+                      if (state.status != Status.loading)
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
@@ -142,7 +143,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 ),
                                 BlocBuilder<VariantsBloc, VariantsState>(
                                   builder: (context, state) {
-                                    return Text(state.quantity.toString(), style: const TextStyle(fontSize: 18.0));
+                                    return Text(
+                                      state.quantity.toString(),
+                                      style: const TextStyle(fontSize: 18.0),
+                                    );
                                   },
                                 ),
                                 IconButton(
@@ -155,51 +159,55 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             ),
                           ],
                         )
-                      : const SizedBox.shrink(),
-                  CustomButtonWidget(
-                    height: 50.h,
-                    width: double.infinity,
-                    color: state.status == Status.loading && state.isAssetLoading == false
-                        ? Colors.grey
-                        : _colorTheme.blueButton,
-                    textButton:
-                        state.status == Status.loading && state.isAssetLoading == false ? "Adding..." : "Add to Cart",
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    fontSize: 18.sp,
-                    margin: EdgeInsets.symmetric(vertical: 5.h),
-                    onTap: state.status == Status.loading
-                        ? null
-                        : () {
-                            bool hasSizeSelected = false;
-                            bool hasColorSelected = false;
+                      else
+                        const SizedBox.shrink(),
+                      CustomButtonWidget(
+                        height: 50.h,
+                        width: double.infinity,
+                        color: state.status == Status.loading && state.isAssetLoading == false
+                            ? Colors.grey
+                            : _colorTheme.blueButton,
+                        textButton: state.status == Status.loading && state.isAssetLoading == false
+                            ? "Adding..."
+                            : "Add to Cart",
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        fontSize: 18.sp,
+                        margin: EdgeInsets.symmetric(vertical: 5.h),
+                        onTap: state.status == Status.loading
+                            ? null
+                            : () {
+                                bool hasSizeSelected = false;
+                                bool hasColorSelected = false;
 
-                            state.variants?.forEach((variantGroup) {
-                              final variantOption = variantOptionMap[variantGroup.name?.toLowerCase()];
-                              if (variantOption == VariantOption.size) {
-                                hasSizeSelected = state.selectedOptions.containsKey(variantGroup.id);
-                              } else if (variantOption == VariantOption.color) {
-                                hasColorSelected = state.selectedOptions.containsKey(variantGroup.id);
-                              }
-                            });
+                                state.variants?.forEach((variantGroup) {
+                                  final variantOption = variantOptionMap[variantGroup.name?.toLowerCase()];
+                                  if (variantOption == VariantOption.size) {
+                                    hasSizeSelected = state.selectedOptions.containsKey(variantGroup.id);
+                                  } else if (variantOption == VariantOption.color) {
+                                    hasColorSelected = state.selectedOptions.containsKey(variantGroup.id);
+                                  }
+                                });
 
-                            if (!hasSizeSelected || !hasColorSelected) {
-                              ToastUtils.showSuccessToast(message: "Please_select_size_and_color".tr());
-                            } else {
-                              context.read<VariantsBloc>().add(AddToCart(
-                                    productId: widget.product.id ?? '',
-                                    quantity: state.quantity,
-                                    selectedOptions: state.selectedOptions,
-                                  ));
-                            }
-                          },
+                                if (!hasSizeSelected || !hasColorSelected) {
+                                  ToastUtils.showSuccessToast(message: "Please_select_size_and_color".tr());
+                                } else {
+                                  context.read<VariantsBloc>().add(AddToCart(
+                                        productId: widget.product.id ?? '',
+                                        quantity: state.quantity,
+                                        selectedOptions: state.selectedOptions,
+                                      ));
+                                }
+                              },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            );
-          },
+                ),
+              );
+            },
+          ),
         );
       },
     );

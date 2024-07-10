@@ -13,6 +13,7 @@ class Assets {
   static const String imagesBanner5 = 'assets/images/banner_5.jpg';
   static const String imagesBanner6 = 'assets/images/banner_6.jpg';
   static const String imagesGoogle = 'assets/images/google.svg';
+  static const String imagesIcon = 'assets/images/icon.png';
   static const String imagesNike = 'assets/images/nike.svg';
   static const String imagesNikeSplash = 'assets/images/nike_splash.png';
   static const String imagesNikeSplashLogo = 'assets/images/nike_splash_logo.png';

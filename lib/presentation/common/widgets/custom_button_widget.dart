@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -275,9 +277,7 @@ class CustomButtonWidget extends StatelessWidget {
       ),
       child: SvgPicture.asset(
         icon,
-        colorFilter: isDisable == null || isDisable == false
-            ? ColorFilter.mode(colorIcon!, BlendMode.srcIn)
-            : const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+        color: isDisable == null || isDisable == false ? colorIcon : Colors.grey,
         width: sizeIcon ?? 16,
         height: sizeIcon ?? 16,
       ),
