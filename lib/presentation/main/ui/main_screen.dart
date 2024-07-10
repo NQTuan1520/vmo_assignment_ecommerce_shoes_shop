@@ -4,7 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/colors/colors.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/favourite/ui/favourite_screen.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/favourite/ui/favourite_screen_provider.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/ui/home_screen.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/ui/home_screen_provider.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/settings/ui/setting_screen_provider.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/settings/ui/settings_screen.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/main/bloc/main_bloc.dart';
 
@@ -23,9 +26,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   final MyColorTheme colorTheme = MyColorTheme();
 
   final List<Widget> _screens = [
-    const FavouritesScreen(),
-    const HomeScreen(),
-    const SettingsScreen(),
+    const FavoriteScreenProvider(),
+    const HomeScreenProvider(),
+    const SettingScreenProvider(),
   ];
 
   void _onNavItemTapped(BuildContext context, int index) {

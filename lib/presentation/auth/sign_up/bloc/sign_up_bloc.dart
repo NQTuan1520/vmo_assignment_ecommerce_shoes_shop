@@ -14,7 +14,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   Future<void> _onSignUpButtonPressed(SignUpButtonPressed event, Emitter emit) async {
-    emit(state.copyWith(status: Status.initial));
+    emit(state.copyWith(status: Status.loading));
     final result = await authUseCase.createUser(event.name, event.phone, event.email, event.password);
     if (result == "success") {
       emit(state.copyWith(status: Status.success));

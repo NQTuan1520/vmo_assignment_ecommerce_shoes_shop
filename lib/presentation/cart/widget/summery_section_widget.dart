@@ -163,7 +163,10 @@ class SummerySectionWidget extends StatelessWidget {
     await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return const VoucherSelectionDialogWidget();
+        return BlocProvider.value(
+          value: context.read<CartBloc>(),
+          child: const VoucherSelectionDialogWidget(),
+        );
       },
     );
   }

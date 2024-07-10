@@ -16,9 +16,6 @@ class HomeScreenProvider extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => getIt<HomeBloc>(),
-        ),
-        BlocProvider(
           create: (context) => getIt<CategoriesBloc>(),
         ),
         BlocProvider(

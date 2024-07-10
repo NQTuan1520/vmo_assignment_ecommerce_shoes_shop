@@ -6,6 +6,7 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/generated/assets.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/colors/colors.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/enum/enum.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/auth/login/ui/login_screen.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/auth/login/ui/login_screen_provider.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/auth/sign_up/bloc/sign_up_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/common/widgets/custom_back_button.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/common/widgets/custom_button_widget.dart';
@@ -51,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ToastUtils.showSuccessToast(message: "sign_up_success".tr());
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()),
+            MaterialPageRoute(builder: (context) => const LoginScreenProvider()),
           );
         } else if (state.status == Status.failure) {
           ToastUtils.showErrorToast(message: "${"some_error_occurred".tr()}: ${state.errorMessage}");
@@ -218,6 +219,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             onTap: () {
                               context.read<LoginBloc>().add(LoginWithGoogle());
+                              ToastUtils.showSuccessToast(message: "sign_in_success".tr());
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                '/main',
+                                (route) => false,
+                              );
                             },
                           ),
                         ],
