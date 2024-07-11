@@ -46,6 +46,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> _onLogoutUser(LogoutUser event, Emitter emit) async {
+    await authUseCase.clearUserLoggedInState();
     await authUseCase.signOut();
     emit(state.copyWith(status: Status.success));
   }

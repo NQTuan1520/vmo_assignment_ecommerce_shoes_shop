@@ -14,6 +14,7 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/domain/cart/discount/reposit
 import 'package:vmo_assignment_ecommerce_shoes_shop/domain/cart/discount/usecase/discount_usecase.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/domain/home/categories/repository/category_repository.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/domain/home/categories/usecase/categories_usecase.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/managers/connectivity/connectivity_manager.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/const/const.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/dio/dio_factory.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/auth/forgot_password/bloc/forgot_password_bloc.dart';
@@ -21,6 +22,7 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/auth/login/bloc
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/auth/sign_up/bloc/sign_up_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/cart/bloc/cart_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/check_out/bloc/check_out_bloc.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/connectivity/connectivity_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/bloc/home/home_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/order/bloc/order_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/profile/bloc%20/profile_bloc.dart';
@@ -76,6 +78,8 @@ void setup() {
         getIt<ProductsApiService>(),
         getIt<FirebaseFirestore>(),
       ));
+
+  getIt.registerSingleton<ConnectivityManager>(ConnectivityManager());
 
   // Register Product use cases
   getIt.registerSingleton<ProductsUseCase>(ProductsUseCase(getIt<ProductRepository>()));
@@ -273,5 +277,11 @@ void setup() {
 
   getIt.registerFactory<LanguageBloc>(
     () => LanguageBloc(),
+  );
+
+  getIt.registerFactory<ConnectivityBloc>(
+    () => ConnectivityBloc(
+      connectivityManager: getIt<ConnectivityManager>(),
+    ),
   );
 }

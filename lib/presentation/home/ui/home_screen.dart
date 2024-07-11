@@ -12,6 +12,7 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/widgets/me
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/widgets/sliver_app_bar_custom_widget.dart';
 
 import '../../../managers/utils/login_ui_helpers.dart';
+import '../../common/global/global_internet_wrap.dart';
 import '../bloc/categories/categories_bloc.dart';
 import '../bloc/home/home_bloc.dart';
 import '../bloc/products/products_bloc.dart';
@@ -81,100 +82,103 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        return ZoomDrawer(
-          borderRadius: 24.r,
-          showShadow: true,
-          angle: -12.0,
-          menuBackgroundColor: const Color(0xFF1A1A2E),
-          controller: _zoomDrawerController,
-          menuScreen: MenuScreen(
-            onMenuItemClicked: _onMenuItemClicked,
-            profileName: state.name ?? '',
-          ),
-          mainScreenTapClose: true,
-          mainScreen: Scaffold(
-            body: CustomScrollView(
-              controller: _scrollController,
-              slivers: [
-                BlocBuilder<HomeBloc, HomeState>(
-                  buildWhen: (prev, cur) => prev.isScrolled != cur.isScrolled,
-                  builder: (context, state) {
-                    return SliverAppBarCustomWidget(
-                        isScrolled: state.isScrolled,
-                        zoomDrawerController: _zoomDrawerController,
-                        checkLoginStatusAndPrompt: (context) {
-                          LoginUIHelpers.checkLoginStatusAndPrompt(context, '/cart', null);
-                        });
-                  },
-                ),
-                BlocBuilder<CategoriesBloc, CategoriesState>(
-                  buildWhen: (prev, cur) => prev.status != cur.status || prev.selectedCategory != cur.selectedCategory,
-                  builder: (context, state) {
-                    if (state.status == Status.loading) {
-                      return const SliverFillRemaining(
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    } else if (state.status == Status.failure) {
-                      return SliverFillRemaining(
-                        child: ErrorLayoutWidget(
-                          tap: () {
-                            _onFetchData();
-                          },
-                          message: "Try to reload".tr(),
-                        ),
-                      );
-                    } else if (state.status == Status.success) {
-                      return CategoryList(
-                        categories: state.categoriesData,
-                        selectedCategory: state.selectedCategory,
-                      );
-                    } else {
-                      return SliverToBoxAdapter(
-                        child: Center(
-                          child: Text('No categories available'.tr()),
-                        ),
-                      );
-                    }
-                  },
-                ),
-                BlocBuilder<ProductsBloc, ProductsState>(
-                  buildWhen: (prev, cur) => prev.status != cur.status || prev.productsData != cur.productsData,
-                  builder: (context, state) {
-                    if (state.status == Status.loading) {
-                      return const SliverFillRemaining(
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    } else if (state.status == Status.failure) {
-                      return SliverFillRemaining(
-                        child: Center(child: Text('${"Failed to load products".tr()} ${state.errorMessage}')),
-                      );
-                    } else if (state.status == Status.success) {
-                      return ProductListWidget(
-                        products: state.selectedProduct,
-                      );
-                    } else {
-                      return SliverToBoxAdapter(
-                        child: Center(child: Text("No products available".tr())),
-                      );
-                    }
-                  },
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(height: 30.h),
-                ),
-                const SliverToBoxAdapter(
-                  child: CarouselSliderWidget(),
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(height: 50.h),
-                ),
-              ],
+    return GlobalConnectivityWrapper(
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          return ZoomDrawer(
+            borderRadius: 24.r,
+            showShadow: true,
+            angle: -12.0,
+            menuBackgroundColor: const Color(0xFF1A1A2E),
+            controller: _zoomDrawerController,
+            menuScreen: MenuScreen(
+              onMenuItemClicked: _onMenuItemClicked,
+              profileName: state.name ?? '',
             ),
-          ),
-        );
-      },
+            mainScreenTapClose: true,
+            mainScreen: Scaffold(
+              body: CustomScrollView(
+                controller: _scrollController,
+                slivers: [
+                  BlocBuilder<HomeBloc, HomeState>(
+                    buildWhen: (prev, cur) => prev.isScrolled != cur.isScrolled,
+                    builder: (context, state) {
+                      return SliverAppBarCustomWidget(
+                          isScrolled: state.isScrolled,
+                          zoomDrawerController: _zoomDrawerController,
+                          checkLoginStatusAndPrompt: (context) {
+                            LoginUIHelpers.checkLoginStatusAndPrompt(context, '/cart', null);
+                          });
+                    },
+                  ),
+                  BlocBuilder<CategoriesBloc, CategoriesState>(
+                    buildWhen: (prev, cur) =>
+                        prev.status != cur.status || prev.selectedCategory != cur.selectedCategory,
+                    builder: (context, state) {
+                      if (state.status == Status.loading) {
+                        return const SliverFillRemaining(
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      } else if (state.status == Status.failure) {
+                        return SliverFillRemaining(
+                          child: ErrorLayoutWidget(
+                            tap: () {
+                              _onFetchData();
+                            },
+                            message: "Try to reload".tr(),
+                          ),
+                        );
+                      } else if (state.status == Status.success) {
+                        return CategoryList(
+                          categories: state.categoriesData,
+                          selectedCategory: state.selectedCategory,
+                        );
+                      } else {
+                        return SliverToBoxAdapter(
+                          child: Center(
+                            child: Text('No categories available'.tr()),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  BlocBuilder<ProductsBloc, ProductsState>(
+                    buildWhen: (prev, cur) => prev.status != cur.status || prev.productsData != cur.productsData,
+                    builder: (context, state) {
+                      if (state.status == Status.loading) {
+                        return const SliverFillRemaining(
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      } else if (state.status == Status.failure) {
+                        return SliverFillRemaining(
+                          child: Center(child: Text('${"Failed to load products".tr()} ${state.errorMessage}')),
+                        );
+                      } else if (state.status == Status.success) {
+                        return ProductListWidget(
+                          products: state.selectedProduct,
+                        );
+                      } else {
+                        return SliverToBoxAdapter(
+                          child: Center(child: Text("No products available".tr())),
+                        );
+                      }
+                    },
+                  ),
+                  SliverToBoxAdapter(
+                    child: SizedBox(height: 30.h),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: CarouselSliderWidget(),
+                  ),
+                  SliverToBoxAdapter(
+                    child: SizedBox(height: 50.h),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 

@@ -14,12 +14,24 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<TogglePasswordVisibility>(_onTogglePasswordVisibility);
     on<LoginWithGoogle>(_onLoginWithGoogle);
     on<GuestLogin>(_onGuestLogin);
+    on<LoadSavedCredentials>(_onLoadSavedCredentials);
+    on<ToggleRememberMe>(_onToggleRememberMe);
   }
 
   Future<void> _onLoginButtonPressed(LoginButtonPressed event, Emitter emit) async {
     emit(state.copyWith(status: Status.loading));
     final result = await authUseCase.loginUser(event.email, event.password);
     if (result == "success") {
+      if (event.rememberMe) {
+        await authUseCase.saveCredentials(event.email, event.password);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isRememberMe', true);
+      } else {
+        await authUseCase.clearSavedCredentials();
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isRememberMe', false);
+      }
+      await authUseCase.saveUserLoggedInState();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isGuest', false);
       emit(state.copyWith(status: Status.success));
@@ -36,6 +48,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(state.copyWith(status: Status.loading));
     final result = await authUseCase.signInWithGoogle();
     if (result == 'success') {
+      await authUseCase.saveUserLoggedInState();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isGuest', false);
       emit(state.copyWith(status: Status.success));
@@ -47,8 +60,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> _onGuestLogin(GuestLogin event, Emitter emit) async {
+    await authUseCase.clearSavedCredentials();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isGuest', true);
     emit(state.copyWith(status: Status.success, isGuest: true));
+  }
+
+  Future<void> _onLoadSavedCredentials(LoadSavedCredentials event, Emitter emit) async {
+    final credentials = await authUseCase.getSavedCredentials();
+    emit(state.copyWith(
+      email: credentials['email'],
+      password: credentials['password'],
+    ));
+  }
+
+  void _onToggleRememberMe(ToggleRememberMe event, Emitter emit) {
+    emit(state.copyWith(isRememberMe: !state.isRememberMe));
   }
 }

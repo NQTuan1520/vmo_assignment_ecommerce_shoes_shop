@@ -95,6 +95,47 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
+  @override
+  Future<void> saveUserLoggedInState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+  }
+
+  @override
+  Future<void> clearUserLoggedInState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('isLoggedIn');
+  }
+
+  @override
+  Future<bool> isUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('isLoggedIn') ?? false;
+  }
+
+  @override
+  Future<void> saveCredentials(String email, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('saved_email', email);
+    await prefs.setString('saved_password', password);
+  }
+
+  @override
+  Future<Map<String, String?>> getSavedCredentials() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return {
+      'email': prefs.getString('saved_email'),
+      'password': prefs.getString('saved_password'),
+    };
+  }
+
+  @override
+  Future<void> clearSavedCredentials() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('saved_email');
+    await prefs.remove('saved_password');
+  }
+
   String handleError(e) {
     if (e is FirebaseAuthException) {
       switch (e.code) {

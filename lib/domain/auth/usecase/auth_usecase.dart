@@ -24,4 +24,28 @@ class AuthUseCase {
   Future<void> signOut() {
     return repository.signOut();
   }
+
+  Future<void> saveUserLoggedInState() {
+    return repository.saveUserLoggedInState();
+  }
+
+  Future<void> clearUserLoggedInState() {
+    return repository.clearUserLoggedInState();
+  }
+
+  Future<bool> isUserLoggedIn() {
+    return repository.isUserLoggedIn();
+  }
+
+  Future<void> saveCredentials(String email, String password) {
+    return repository.saveCredentials(email, password);
+  }
+
+  Future<Map<String, String?>> getSavedCredentials() {
+    return repository.getSavedCredentials();
+  }
+
+  Future<void> clearSavedCredentials() {
+    return repository.clearSavedCredentials();
+  }
 }

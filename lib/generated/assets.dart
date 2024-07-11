@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String animationsSplash = 'assets/animations/splash_animation.json';
   static const String fontsRobotoBold = 'assets/fonts/Roboto-Bold.ttf';
   static const String fontsRobotoRegular = 'assets/fonts/Roboto-Regular.ttf';
   static const String imagesBackground = 'assets/images/background.png';

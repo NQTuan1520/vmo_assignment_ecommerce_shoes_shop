@@ -18,9 +18,12 @@ import '../../presentation/profile/ui/profile_screen_provider.dart';
 import '../../presentation/search/ui/search_screen_provider.dart';
 import '../../presentation/settings/ui/setting_screen_provider.dart';
 import '../../presentation/shipping_info/ui/shipping_info_screen_provider.dart';
+import '../../presentation/splash/splash_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case '/splash':
+      return MaterialPageRoute(builder: (context) => const SplashScreen());
     case '/onBoarding':
       return MaterialPageRoute(builder: (context) => const OnboardingScreenProvider());
     case '/main':
@@ -60,6 +63,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case '/shipping_info':
       return MaterialPageRoute(builder: (context) => const ShippingInfoScreenProvider());
     default:
-      return MaterialPageRoute(builder: (context) => const MainScreenProvider());
+      return MaterialPageRoute(builder: (context) => const SplashScreen());
   }
 }

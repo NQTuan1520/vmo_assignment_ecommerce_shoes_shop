@@ -6,11 +6,13 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/navigation/routes.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/cart/bloc/cart_bloc.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/common/global/global_internet_wrap.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/connectivity/connectivity_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/bloc/home/home_bloc.dart';
-import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/onboarding_screen/ui/onboarding_screen_provider.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/product_detail/bloc/variants/variants_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/settings/bloc/language/language_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/settings/bloc/theme/theme_bloc.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/splash/splash_screen.dart';
 
 import 'managers/service_locator/di.dart';
 import 'managers/theme/app_theme.dart';
@@ -25,10 +27,15 @@ void main() async {
   FlutterNativeSplash.remove();
   await EasyLocalization.ensureInitialized();
   setup();
-  runApp(EasyLocalization(supportedLocales: const [
-    Locale('en', 'US'),
-    Locale('vi', 'VN'),
-  ], path: 'assets/translation', fallbackLocale: const Locale('en', 'US'), child: const MyApp()));
+  runApp(EasyLocalization(
+    supportedLocales: const [
+      Locale('en', 'US'),
+      Locale('vi', 'VN'),
+    ],
+    path: 'assets/translation',
+    fallbackLocale: const Locale('en', 'US'),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -38,6 +45,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => getIt<ConnectivityBloc>()..add(CheckConnectivity()),
+        ),
         BlocProvider(
           create: (context) => getIt<ThemeBloc>()..add(LoadTheme()),
         ),
@@ -72,7 +82,10 @@ class MyApp extends StatelessWidget {
                       localizationsDelegates: context.localizationDelegates,
                       theme: themeState.isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme,
                       onGenerateRoute: generateRoute,
-                      home: const OnboardingScreenProvider(),
+                      home: const SplashScreen(),
+                      builder: (context, child) {
+                        return GlobalConnectivityWrapper(child: child!);
+                      },
                     );
                   },
                 );

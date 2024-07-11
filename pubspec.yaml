@@ -70,6 +70,11 @@ dependencies:
   #restart app
   restart_app: ^1.2.1
 
+  #check internet connection
+  connectivity_plus: ^3.0.2
+
+  lottie: ^3.1.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -92,6 +97,7 @@ flutter:
     - assets/images/
     - assets/translation/
     - assets/fonts/
+    - assets/animations/
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

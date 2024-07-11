@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/bloc/categories/categories_bloc.dart';
-import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/bloc/home/home_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/bloc/products/products_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/ui/home_screen.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/service_locator/di.dart';

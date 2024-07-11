@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/colors/colors.dart';
-import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/favourite/ui/favourite_screen.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/favourite/ui/favourite_screen_provider.dart';
-import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/ui/home_screen.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/ui/home_screen_provider.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/settings/ui/setting_screen_provider.dart';
-import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/settings/ui/settings_screen.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/main/bloc/main_bloc.dart';
 
 import '../../settings/bloc/theme/theme_bloc.dart';

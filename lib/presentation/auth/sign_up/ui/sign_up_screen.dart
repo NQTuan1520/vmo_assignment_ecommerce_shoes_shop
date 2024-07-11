@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/generated/assets.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/colors/colors.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/enum/enum.dart';
-import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/auth/login/ui/login_screen.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/auth/login/ui/login_screen_provider.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/auth/sign_up/bloc/sign_up_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/common/widgets/custom_back_button.dart';

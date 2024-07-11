@@ -7,8 +7,9 @@ sealed class LoginEvent extends Equatable {
 class LoginButtonPressed extends LoginEvent {
   final String email;
   final String password;
+  final bool rememberMe;
 
-  const LoginButtonPressed({required this.email, required this.password});
+  const LoginButtonPressed({required this.email, required this.password, required this.rememberMe});
 
   @override
   List<Object?> get props => [email, password];
@@ -25,6 +26,16 @@ class LoginWithGoogle extends LoginEvent {
 }
 
 class GuestLogin extends LoginEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class LoadSavedCredentials extends LoginEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class ToggleRememberMe extends LoginEvent {
   @override
   List<Object?> get props => [];
 }
