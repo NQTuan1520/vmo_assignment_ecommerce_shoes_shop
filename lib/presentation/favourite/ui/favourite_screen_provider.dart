@@ -16,9 +16,6 @@ class FavoriteScreenProvider extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<ThemeBloc>(),
         ),
-        BlocProvider(
-          create: (context) => getIt<FavouriteBloc>(),
-        ),
       ],
       child: const FavouritesScreen(),
     );

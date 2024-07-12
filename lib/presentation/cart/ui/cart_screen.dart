@@ -63,7 +63,7 @@ class _CartScreenState extends State<CartScreen> {
             },
             child: BlocBuilder<CartBloc, CartState>(
               builder: (context, state) {
-                if (state.status == Status.loading) {
+                if (state.status == Status.loading || state.updateStatus == Status.loading) {
                   return Center(
                     child: ShimmerWidget(
                       height: double.infinity.h,

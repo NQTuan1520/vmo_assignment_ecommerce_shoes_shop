@@ -24,7 +24,8 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
       final uid = auth.currentUser?.uid;
       if (uid != null) {
         await productsUseCase.addFavouriteProduct(uid, event.product);
-        add(FetchFavoritesEvent());
+        final favorites = List<ProductDataEntity>.from(state.favourites)..add(event.product);
+        emit(state.copyWith(status: Status.success, favourites: favorites));
       }
     } catch (error) {
       emit(state.copyWith(status: Status.failure, errorMessage: error.toString()));
@@ -36,7 +37,8 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
       final uid = auth.currentUser?.uid;
       if (uid != null) {
         await productsUseCase.removeFavouriteProduct(uid, event.productId);
-        add(FetchFavoritesEvent());
+        final favorites = await productsUseCase.getFavouriteProducts(uid);
+        emit(state.copyWith(status: Status.success, favourites: favorites));
       }
     } catch (error) {
       emit(state.copyWith(status: Status.failure, errorMessage: error.toString()));

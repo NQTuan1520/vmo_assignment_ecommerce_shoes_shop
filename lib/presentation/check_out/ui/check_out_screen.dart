@@ -280,6 +280,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               onPressed: () {
                 Navigator.of(context).pop();
                 _placeOrder();
+                context.read<ShippingBloc>().add(UpdateShippingInfoEvent(
+                      name: _nameController.text,
+                      street: _streetController.text,
+                      city: _cityController.text,
+                      state: _stateController.text,
+                      zip: _zipController.text,
+                      country: _countryController.text,
+                      phone: _phoneController.text,
+                      email: _emailController.text,
+                    ));
               },
               child: Text("confirm".tr()),
             ),

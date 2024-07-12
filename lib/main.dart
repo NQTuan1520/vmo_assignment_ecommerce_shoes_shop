@@ -8,10 +8,12 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/managers/navigation/routes.d
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/cart/bloc/cart_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/common/global/global_internet_wrap.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/connectivity/connectivity_bloc.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/favourite/bloc/favourite_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/bloc/home/home_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/product_detail/bloc/variants/variants_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/settings/bloc/language/language_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/settings/bloc/theme/theme_bloc.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/shipping_info/bloc/shipping_bloc.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/splash/splash_screen.dart';
 
 import 'managers/service_locator/di.dart';
@@ -62,6 +64,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<HomeBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<ShippingBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<FavouriteBloc>(),
         ),
       ],
       child: ScreenUtilInit(

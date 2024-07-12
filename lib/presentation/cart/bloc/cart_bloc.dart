@@ -123,7 +123,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _onUpdateCartItemQuantity(UpdateCartItemQuantity event, Emitter<CartState> emit) async {
-    emit(state.copyWith(updateStatus: Status.loading, checkDiscount: true));
+    emit(state.copyWith(checkDiscount: true));
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? cartId = prefs.getString('cart_id');

@@ -22,9 +22,6 @@ class ProductDetailScreenProvider extends StatelessWidget {
         BlocProvider(
           create: (context) => ProductDetailBloc(),
         ),
-        BlocProvider(
-          create: (context) => getIt<FavouriteBloc>(),
-        ),
       ],
       child: ProductDetailScreen(product: product, showBottomSheet: showBottomSheet),
     );

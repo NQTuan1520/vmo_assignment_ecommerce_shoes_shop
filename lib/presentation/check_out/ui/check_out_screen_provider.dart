@@ -19,9 +19,6 @@ class CheckOutScreenProvider extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<CheckOutBloc>(),
         ),
-        BlocProvider(
-          create: (context) => getIt<ShippingBloc>(),
-        ),
       ],
       child: CheckOutScreen(
         checkoutToken: checkoutToken,

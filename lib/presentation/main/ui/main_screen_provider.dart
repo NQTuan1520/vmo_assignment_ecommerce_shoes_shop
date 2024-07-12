@@ -28,9 +28,6 @@ class MainScreenProvider extends StatelessWidget {
           create: (context) => getIt<ProductsBloc>(),
         ),
         BlocProvider(
-          create: (context) => getIt<FavouriteBloc>(),
-        ),
-        BlocProvider(
           create: (context) => getIt<ProfileBloc>(),
         ),
         BlocProvider(
