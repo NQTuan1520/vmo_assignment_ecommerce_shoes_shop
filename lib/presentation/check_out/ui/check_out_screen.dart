@@ -6,6 +6,7 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/check_out/widge
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/check_out/widget/section_title_widget.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/check_out/widget/text_form_field_custom_widget.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/common/widgets/custom_button_widget.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/common/widgets/toast_utils.dart';
 
 import '../../../data/check_out/request/capture_order_request.dart';
 import '../../../domain/check_out/entity/get_token_check_out_entity.dart';
@@ -208,9 +209,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     if (state.showSuccessDialog) {
       _showSuccessDialog();
     } else if (state.status == Status.failure && state.errorMessage != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(state.errorMessage!)),
-      );
+      ToastUtils.showErrorToast(message: "Order Failed: ${state.errorMessage!}");
+      Navigator.pushReplacementNamed(context, "/main");
     }
   }
 
@@ -280,16 +280,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               onPressed: () {
                 Navigator.of(context).pop();
                 _placeOrder();
-                context.read<ShippingBloc>().add(UpdateShippingInfoEvent(
-                      name: _nameController.text,
-                      street: _streetController.text,
-                      city: _cityController.text,
-                      state: _stateController.text,
-                      zip: _zipController.text,
-                      country: _countryController.text,
-                      phone: _phoneController.text,
-                      email: _emailController.text,
-                    ));
               },
               child: Text("confirm".tr()),
             ),
