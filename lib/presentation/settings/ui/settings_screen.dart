@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:restart_app/restart_app.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/colors/colors.dart';
 
 import '../../home/bloc/home/home_bloc.dart';
@@ -190,7 +189,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 context.read<LanguageBloc>().add(ChangeLanguage(newValue));
                 context.setLocale(newValue); // Update locale using EasyLocalization
-                // Restart.restartApp(); // Restart the app to apply changes
                 Navigator.of(context).pop(); // Dismiss the dialog
               },
               child: Text(context.tr("Yes")),
