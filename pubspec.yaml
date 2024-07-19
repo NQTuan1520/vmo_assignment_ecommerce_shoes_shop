@@ -59,6 +59,8 @@ dependencies:
 
   #splash_screen
   flutter_native_splash: ^2.4.0
+  sqflite: ^2.3.3+1
+  path: ^1.9.0
 
   #auth
   firebase_core: ^3.0.0
@@ -74,6 +76,7 @@ dependencies:
   connectivity_plus: ^3.0.2
 
   lottie: ^3.1.2
+
 
 dev_dependencies:
   flutter_test:

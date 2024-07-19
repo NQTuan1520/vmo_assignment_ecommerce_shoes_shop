@@ -54,6 +54,7 @@ import '../../presentation/home/bloc/categories/categories_bloc.dart';
 import '../../presentation/home/bloc/products/products_bloc.dart';
 import '../../presentation/product_detail/bloc/variants/variants_bloc.dart';
 import '../../presentation/settings/bloc/theme/theme_bloc.dart';
+import '../utils/database_helpers.dart';
 
 final getIt = GetIt.instance;
 
@@ -76,6 +77,9 @@ Future<void> setup() async {
 
   // Register Connectivity Manager
   getIt.registerSingleton<ConnectivityManager>(ConnectivityManager());
+
+  //Register Database Helper
+  getIt.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper.instance);
 
   // Register Product API service
   getIt.registerLazySingleton<ProductsApiService>(
@@ -224,7 +228,7 @@ Future<void> setup() async {
   getIt.registerFactory<SearchBloc>(
     () => SearchBloc(
       productsUseCase: getIt<ProductsUseCase>(),
-      prefs: getIt<SharedPreferences>(),
+      databaseHelper: getIt<DatabaseHelper>(),
     ),
   );
 

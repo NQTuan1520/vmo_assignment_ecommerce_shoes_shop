@@ -7,15 +7,16 @@ import '../../../domain/home/products/products_detail/entity/product_data_entity
 import '../../../domain/home/products/products_detail/usecase/products_usecase.dart';
 import '../../../managers/const/const.dart';
 import '../../../managers/enum/enum.dart';
+import '../../../managers/utils/database_helpers.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final ProductsUseCase productsUseCase;
-  final SharedPreferences prefs;
+  final DatabaseHelper databaseHelper;
 
-  SearchBloc({required this.productsUseCase, required this.prefs}) : super(const SearchState()) {
+  SearchBloc({required this.productsUseCase, required this.databaseHelper}) : super(const SearchState()) {
     on<SearchProductsEvent>(_onSearchProducts, transformer: debounceTransformer());
     on<ClearSearchResults>(_onClearSearchResults);
     on<LoadSearchHistory>(_onLoadSearchHistory);
@@ -46,31 +47,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   Future<void> _onLoadSearchHistory(LoadSearchHistory event, Emitter<SearchState> emit) async {
-    final searchHistory = await _getSearchHistory();
+    final searchHistory = await databaseHelper.getSearchHistory();
     emit(state.copyWith(searchHistory: searchHistory));
   }
 
   Future<void> _onDeleteSearchHistoryItem(DeleteSearchHistoryItem event, Emitter<SearchState> emit) async {
-    await _deleteSearchHistoryItem(event.item);
-    final searchHistory = await _getSearchHistory();
+    await databaseHelper.deleteSearchHistoryItem(event.item);
+    final searchHistory = await databaseHelper.getSearchHistory();
     emit(state.copyWith(searchHistory: searchHistory));
   }
 
   Future<void> _saveSearchHistory(String query) async {
-    List<String> searchHistory = prefs.getStringList('search_history') ?? [];
-    if (!searchHistory.contains(query)) {
-      searchHistory.add(query);
-      await prefs.setStringList('search_history', searchHistory);
-    }
-  }
-
-  Future<List<String>> _getSearchHistory() async {
-    return prefs.getStringList('search_history') ?? [];
-  }
-
-  Future<void> _deleteSearchHistoryItem(String item) async {
-    List<String> searchHistory = prefs.getStringList('search_history') ?? [];
-    searchHistory.remove(item);
-    await prefs.setStringList('search_history', searchHistory);
+    await databaseHelper.insertQuery(query);
   }
 }
