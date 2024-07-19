@@ -7,7 +7,6 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/managers/service_locator/di.
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/main/ui/main_screen.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/product_detail/bloc/variants/variants_bloc.dart';
 
-import '../../favourite/bloc/favourite_bloc.dart';
 import '../../profile/bloc /profile_bloc.dart';
 import '../../shipping_info/bloc/shipping_bloc.dart';
 

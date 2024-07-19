@@ -23,9 +23,6 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Future.delayed(
-    const Duration(seconds: 4),
-  );
   FlutterNativeSplash.remove();
   await EasyLocalization.ensureInitialized();
   setup();

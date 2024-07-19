@@ -25,7 +25,7 @@ class AppbarCustomWidget extends StatelessWidget implements PreferredSizeWidget 
       actions: [
         BlocBuilder<FavouriteBloc, FavouriteState>(
           builder: (context, state) {
-            final isFavorite = state.favourites?.any((item) => item.id == product.id) ?? false;
+            final isFavorite = state.favourites.any((item) => item.id == product.id);
             return IconButton(
               icon: Icon(
                 isFavorite ? Icons.favorite : Icons.favorite_border,

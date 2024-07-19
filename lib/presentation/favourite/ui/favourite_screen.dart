@@ -44,10 +44,10 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
             builder: (context, state) {
               if (state.status == Status.loading) {
                 return ShimmerWidget(height: double.infinity.h, width: double.infinity.w);
-              } else if (state.status == Status.success && state.favourites!.isEmpty) {
+              } else if (state.status == Status.success && state.favourites.isEmpty) {
                 return Center(child: Text("no_favorites".tr(), style: TextStyle(fontSize: 18.sp)));
               } else if (state.status == Status.success) {
-                return FavoritesGridWidget(favorites: state.favourites!);
+                return FavoritesGridWidget(favorites: state.favourites);
               } else if (state.status == Status.failure) {
                 return Center(
                     child: Text(state.errorMessage ?? "fail_to_load_favorite".tr(), style: TextStyle(fontSize: 18.sp)));

@@ -4,7 +4,6 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/favourite/ui/fa
 import 'package:vmo_assignment_ecommerce_shoes_shop/managers/service_locator/di.dart';
 
 import '../../settings/bloc/theme/theme_bloc.dart';
-import '../bloc/favourite_bloc.dart';
 
 class FavoriteScreenProvider extends StatelessWidget {
   const FavoriteScreenProvider({super.key});

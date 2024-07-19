@@ -4,7 +4,6 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/bloc/home/
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/settings/ui/settings_screen.dart';
 
 import '../../../managers/service_locator/di.dart';
-import '../bloc/theme/theme_bloc.dart';
 
 class SettingScreenProvider extends StatelessWidget {
   const SettingScreenProvider({super.key});
@@ -13,9 +12,6 @@ class SettingScreenProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => getIt<ThemeBloc>(),
-        ),
         BlocProvider(
           create: (context) => getIt<HomeBloc>(),
         ),
