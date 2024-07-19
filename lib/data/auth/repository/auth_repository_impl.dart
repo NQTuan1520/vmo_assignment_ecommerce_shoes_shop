@@ -10,8 +10,9 @@ import '../../../presentation/common/widgets/toast_utils.dart';
 class AuthRepositoryImpl implements AuthRepository {
   final FirebaseAuth _auth;
   final FirebaseFirestore _fireStore;
+  final SharedPreferences _prefs;
 
-  AuthRepositoryImpl(this._auth, this._fireStore);
+  AuthRepositoryImpl(this._auth, this._fireStore, this._prefs);
 
   @override
   Future<String> createUser(String fullName, String telephone, String email, String password) async {
@@ -34,8 +35,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<String> loginUser(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isGuest', false);
+      await _prefs.setBool('isGuest', false);
       return 'success';
     } catch (e) {
       return handleError(e);
@@ -75,8 +75,7 @@ class AuthRepositoryImpl implements AuthRepository {
           'password': '',
         });
       }
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isGuest', false);
+      await _prefs.setBool('isGuest', false);
       return 'success';
     } catch (e) {
       return handleError(e);
@@ -87,8 +86,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> signOut() async {
     try {
       await _auth.signOut();
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isGuest', true);
+      await _prefs.setBool('isGuest', true);
       ToastUtils.showSuccessToast(message: "Successfully_signed_out".tr());
     } catch (e) {
       ToastUtils.showErrorToast(message: '${"Sign_out_failed".tr()}: $e');
@@ -97,43 +95,37 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> saveUserLoggedInState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', true);
+    await _prefs.setBool('isLoggedIn', true);
   }
 
   @override
   Future<void> clearUserLoggedInState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('isLoggedIn');
+    await _prefs.remove('isLoggedIn');
   }
 
   @override
   Future<bool> isUserLoggedIn() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('isLoggedIn') ?? false;
+    return _prefs.getBool('isLoggedIn') ?? false;
   }
 
   @override
   Future<void> saveCredentials(String email, String password) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('saved_email', email);
-    await prefs.setString('saved_password', password);
+    await _prefs.setString('saved_email', email);
+    await _prefs.setString('saved_password', password);
   }
 
   @override
   Future<Map<String, String?>> getSavedCredentials() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     return {
-      'email': prefs.getString('saved_email'),
-      'password': prefs.getString('saved_password'),
+      'email': _prefs.getString('saved_email'),
+      'password': _prefs.getString('saved_password'),
     };
   }
 
   @override
   Future<void> clearSavedCredentials() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('saved_email');
-    await prefs.remove('saved_password');
+    await _prefs.remove('saved_email');
+    await _prefs.remove('saved_password');
   }
 
   String handleError(e) {

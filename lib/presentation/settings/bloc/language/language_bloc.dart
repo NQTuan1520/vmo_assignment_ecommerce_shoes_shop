@@ -8,13 +8,14 @@ part 'language_event.dart';
 part 'language_state.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
-  LanguageBloc() : super(const LanguageState(Locale('en', 'US'))) {
+  final SharedPreferences prefs;
+
+  LanguageBloc({required this.prefs}) : super(const LanguageState(Locale('en', 'US'))) {
     on<LoadLanguage>(_onLoadLanguage);
     on<ChangeLanguage>(_onChangeLanguage);
   }
 
   Future<void> _onLoadLanguage(LoadLanguage event, Emitter<LanguageState> emit) async {
-    final prefs = await SharedPreferences.getInstance();
     final langCode = prefs.getString('language_code') ?? 'en';
     final countryCode = prefs.getString('country_code') ?? 'US';
     final locale = Locale(langCode, countryCode);
@@ -22,7 +23,6 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   }
 
   Future<void> _onChangeLanguage(ChangeLanguage event, Emitter<LanguageState> emit) async {
-    final prefs = await SharedPreferences.getInstance();
     await prefs.setString('language_code', event.locale.languageCode);
     await prefs.setString('country_code', event.locale.countryCode ?? 'US');
     emit(LanguageState(event.locale));

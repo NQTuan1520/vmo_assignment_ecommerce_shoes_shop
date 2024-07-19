@@ -13,8 +13,9 @@ part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final ProductsUseCase productsUseCase;
+  final SharedPreferences prefs;
 
-  SearchBloc({required this.productsUseCase}) : super(const SearchState()) {
+  SearchBloc({required this.productsUseCase, required this.prefs}) : super(const SearchState()) {
     on<SearchProductsEvent>(_onSearchProducts, transformer: debounceTransformer());
     on<ClearSearchResults>(_onClearSearchResults);
     on<LoadSearchHistory>(_onLoadSearchHistory);
@@ -56,7 +57,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   Future<void> _saveSearchHistory(String query) async {
-    final prefs = await SharedPreferences.getInstance();
     List<String> searchHistory = prefs.getStringList('search_history') ?? [];
     if (!searchHistory.contains(query)) {
       searchHistory.add(query);
@@ -65,12 +65,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   Future<List<String>> _getSearchHistory() async {
-    final prefs = await SharedPreferences.getInstance();
     return prefs.getStringList('search_history') ?? [];
   }
 
   Future<void> _deleteSearchHistoryItem(String item) async {
-    final prefs = await SharedPreferences.getInstance();
     List<String> searchHistory = prefs.getStringList('search_history') ?? [];
     searchHistory.remove(item);
     await prefs.setStringList('search_history', searchHistory);

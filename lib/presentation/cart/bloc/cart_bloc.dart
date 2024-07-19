@@ -21,11 +21,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   final CartUseCase cartUseCase;
   final DiscountUseCase discountUseCase;
   final CheckOutUseCase checkOutUseCase;
+  final SharedPreferences prefs;
 
   CartBloc({
     required this.cartUseCase,
     required this.discountUseCase,
     required this.checkOutUseCase,
+    required this.prefs,
   }) : super(const CartState()) {
     on<FetchCartDetails>(_onFetchCartDetails);
     on<RemoveCartItems>(_onRemoveCartItems);
@@ -46,7 +48,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Future<void> _onFetchCartDetails(FetchCartDetails event, Emitter emit) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       String? cartId = prefs.getString('cart_id');
       if (cartId != null && cartId.isNotEmpty) {
         final cart = await cartUseCase.fetchCartDetails(cartId);
@@ -72,7 +73,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Future<void> _onRemoveCartItems(RemoveCartItems event, Emitter emit) async {
     emit(state.copyWith(updateStatus: Status.loading));
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       String? cartId = prefs.getString('cart_id');
       if (cartId != null && cartId.isNotEmpty) {
         final response = await cartUseCase.removeCartItem(cartId, event.cartItem.id ?? '');
@@ -125,7 +125,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Future<void> _onUpdateCartItemQuantity(UpdateCartItemQuantity event, Emitter<CartState> emit) async {
     emit(state.copyWith(checkDiscount: true));
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       String? cartId = prefs.getString('cart_id');
 
       if (cartId != null && cartId.isNotEmpty) {
@@ -179,7 +178,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Future<void> _onApplyVoucher(ApplyVoucher event, Emitter emit) async {
     emit(state.copyWith(updateStatus: Status.loading));
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       String? cartId = prefs.getString('cart_id');
       if (cartId != null && cartId.isNotEmpty) {
         final response = await cartUseCase.applyVoucher(cartId, event.voucherCode);
@@ -199,11 +197,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Future<void> _onGetCheckOutToken(GetCheckOutToken event, Emitter emit) async {
     emit(state.copyWith(checkoutTokenStatus: Status.loading));
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       String? cartId = prefs.getString('cart_id');
       if (cartId != null && cartId.isNotEmpty) {
         final response = await checkOutUseCase.getCheckOutTokenId(cartId);
-        SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('checkout_token', response.id ?? '');
         emit(state.copyWith(
           tokenCheckOut: response,

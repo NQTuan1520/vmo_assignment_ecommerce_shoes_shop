@@ -20,11 +20,13 @@ class VariantsBloc extends Bloc<VariantsEvent, VariantsState> {
   final ProductsUseCase variantUseCase;
   final CategoriesUseCase categoriesUseCase;
   final CartUseCase cartUseCase;
+  final SharedPreferences prefs;
 
   VariantsBloc({
     required this.variantUseCase,
     required this.categoriesUseCase,
     required this.cartUseCase,
+    required this.prefs,
   }) : super(const VariantsState()) {
     on<FetchVariants>(_onFetchVariants);
     on<SelectColor>(_onSelectColor);
@@ -113,7 +115,6 @@ class VariantsBloc extends Bloc<VariantsEvent, VariantsState> {
   Future<void> _onAddToCart(AddToCart event, Emitter<VariantsState> emit) async {
     emit(state.copyWith(status: Status.loading, isCartLoading: true, isAddingToCart: true));
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       String? cartId = prefs.getString('cart_id');
 
       if (cartId == null || cartId.isEmpty) {

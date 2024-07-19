@@ -13,8 +13,9 @@ part 'check_out_state.dart';
 
 class CheckOutBloc extends Bloc<CheckOutEvent, CheckOutState> {
   final CheckOutUseCase checkOutUseCase;
+  final SharedPreferences prefs;
 
-  CheckOutBloc({required this.checkOutUseCase}) : super(const CheckOutState()) {
+  CheckOutBloc({required this.checkOutUseCase, required this.prefs}) : super(const CheckOutState()) {
     on<CaptureOrder>(_onCaptureOrder);
     on<ResetCheckOut>(_onResetCheckOut);
   }
@@ -22,7 +23,6 @@ class CheckOutBloc extends Bloc<CheckOutEvent, CheckOutState> {
   Future<void> _onCaptureOrder(CaptureOrder event, Emitter emit) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       String? checkOutTokenId = prefs.getString('checkout_token');
       if (checkOutTokenId != null && checkOutTokenId.isNotEmpty) {
         await checkOutUseCase.captureOrder(
@@ -45,7 +45,6 @@ class CheckOutBloc extends Bloc<CheckOutEvent, CheckOutState> {
   }
 
   void _onResetCheckOut(ResetCheckOut event, Emitter emit) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('checkout_token');
     await prefs.remove('cart_id');
 

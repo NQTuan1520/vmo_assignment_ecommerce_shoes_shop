@@ -4,6 +4,7 @@ import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/auth/sign_up/ui
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/home/ui/home_screen_provider.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/presentation/product_detail/product_detail_args.dart';
 
+import '../../presentation/all_product/ui/product_screen_provider.dart';
 import '../../presentation/auth/forgot_password/ui/forgot_password_screen_provider.dart';
 import '../../presentation/cart/ui/cart_screen_provider.dart';
 import '../../presentation/check_out/checkout_args.dart';
@@ -12,7 +13,6 @@ import '../../presentation/favourite/ui/favourite_screen_provider.dart';
 import '../../presentation/main/ui/main_screen_provider.dart';
 import '../../presentation/onboarding_screen/ui/onboarding_screen_provider.dart';
 import '../../presentation/order/ui/order_screen_provider.dart';
-import '../../presentation/product/ui/product_screen_provider.dart';
 import '../../presentation/product_detail/ui/product_detail_screen_provider.dart';
 import '../../presentation/profile/ui/profile_screen_provider.dart';
 import '../../presentation/search/ui/search_screen_provider.dart';

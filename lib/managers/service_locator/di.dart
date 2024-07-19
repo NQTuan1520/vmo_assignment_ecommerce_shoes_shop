@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/data/cart/discount/repository/discount_repository_impl.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/data/check_out/api/check_out_api_service.dart';
 import 'package:vmo_assignment_ecommerce_shoes_shop/data/home/categories/api/categories_api_service.dart';
@@ -45,16 +48,20 @@ import '../../domain/home/products/products_detail/repository/product_repository
 import '../../domain/home/products/products_detail/usecase/products_usecase.dart';
 import '../../domain/order/repository/order_repository.dart';
 import '../../domain/order/usecase/order_usecase.dart';
+import '../../presentation/all_product/bloc/product_bloc.dart';
 import '../../presentation/favourite/bloc/favourite_bloc.dart';
 import '../../presentation/home/bloc/categories/categories_bloc.dart';
 import '../../presentation/home/bloc/products/products_bloc.dart';
-import '../../presentation/product/bloc/product_bloc.dart';
 import '../../presentation/product_detail/bloc/variants/variants_bloc.dart';
 import '../../presentation/settings/bloc/theme/theme_bloc.dart';
 
 final getIt = GetIt.instance;
 
-void setup() {
+Future<void> setup() async {
+  //Register SharedPreferences
+  final sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerSingleton<SharedPreferences>(sharedPreferences);
+
   // Register DioFactory
   getIt.registerLazySingleton<DioFactory>(() => DioFactory(AppConstants.baseUrl));
 
@@ -67,19 +74,19 @@ void setup() {
   //Register Firebase Auth
   getIt.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 
+  // Register Connectivity Manager
+  getIt.registerSingleton<ConnectivityManager>(ConnectivityManager());
+
   // Register Product API service
   getIt.registerLazySingleton<ProductsApiService>(
     () => ProductsApiService(getIt<Dio>(), baseUrl: AppConstants.baseUrl),
   );
 
   // Register Product repositories
-
   getIt.registerLazySingleton<ProductRepository>(() => ProductRepositoryImpl(
         getIt<ProductsApiService>(),
         getIt<FirebaseFirestore>(),
       ));
-
-  getIt.registerSingleton<ConnectivityManager>(ConnectivityManager());
 
   // Register Product use cases
   getIt.registerSingleton<ProductsUseCase>(ProductsUseCase(getIt<ProductRepository>()));
@@ -162,6 +169,7 @@ void setup() {
     () => AuthRepositoryImpl(
       getIt<FirebaseAuth>(),
       getIt<FirebaseFirestore>(),
+      getIt<SharedPreferences>(),
     ),
   );
 
@@ -186,6 +194,7 @@ void setup() {
       variantUseCase: getIt<ProductsUseCase>(),
       categoriesUseCase: getIt<CategoriesUseCase>(),
       cartUseCase: getIt<CartUseCase>(),
+      prefs: getIt<SharedPreferences>(),
     ),
   );
 
@@ -194,12 +203,14 @@ void setup() {
       cartUseCase: getIt<CartUseCase>(),
       discountUseCase: getIt<DiscountUseCase>(),
       checkOutUseCase: getIt<CheckOutUseCase>(),
+      prefs: getIt<SharedPreferences>(),
     ),
   );
 
   getIt.registerFactory<CheckOutBloc>(
     () => CheckOutBloc(
       checkOutUseCase: getIt<CheckOutUseCase>(),
+      prefs: getIt<SharedPreferences>(),
     ),
   );
 
@@ -213,6 +224,7 @@ void setup() {
   getIt.registerFactory<SearchBloc>(
     () => SearchBloc(
       productsUseCase: getIt<ProductsUseCase>(),
+      prefs: getIt<SharedPreferences>(),
     ),
   );
 
@@ -260,6 +272,7 @@ void setup() {
   getIt.registerFactory<LoginBloc>(
     () => LoginBloc(
       authUseCase: getIt<AuthUseCase>(),
+      prefs: getIt<SharedPreferences>(),
     ),
   );
 
@@ -276,7 +289,9 @@ void setup() {
   );
 
   getIt.registerFactory<LanguageBloc>(
-    () => LanguageBloc(),
+    () => LanguageBloc(
+      prefs: getIt<SharedPreferences>(),
+    ),
   );
 
   getIt.registerFactory<ConnectivityBloc>(
