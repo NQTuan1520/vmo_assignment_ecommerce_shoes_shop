@@ -36,10 +36,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
       listener: (context, state) {
         if (state.status == Status.success) {
-          ToastUtils.showSuccessToast(message: "recovery_password_success".tr());
+          ToastUtils.showSuccessToast(message: context.tr("recovery_password_success"));
           Navigator.pop(context);
         } else if (state.status == Status.failure) {
-          ToastUtils.showErrorToast(message: state.errorMessage ?? "recovery_password_error".tr());
+          ToastUtils.showErrorToast(message: state.errorMessage ?? context.tr("recovery_password_error"));
         }
       },
       child: Stack(
@@ -64,7 +64,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       children: [
                         Center(
                           child: Text(
-                            "recovery_password".tr(),
+                            context.tr("recovery_password"),
                             style: TextStyle(
                               fontSize: 32.sp,
                               fontWeight: FontWeight.w600,
@@ -74,7 +74,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         SizedBox(height: 10.h),
                         Center(
                           child: Text(
-                            "recovery_password_text".tr(),
+                            context.tr("recovery_password_text"),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 16.sp,
@@ -85,14 +85,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         SizedBox(height: 50.h),
                         CustomTextField(
                           controller: _emailController,
-                          labelText: "email_address".tr(),
-                          hintText: "email_address_hint_text".tr(),
+                          labelText: context.tr("email_address"),
+                          hintText: context.tr("email_address_hint_text"),
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value != null && value.isNotEmpty) {
                               return null;
                             } else {
-                              return "email_empty_error".tr();
+                              return context.tr("email_empty_error");
                             }
                           },
                         ),
@@ -105,7 +105,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               height: 50.h,
                               width: double.infinity.w,
                               color: _colorTheme.blueButton,
-                              textButton: "confirm".tr(),
+                              textButton: context.tr("confirm"),
                               textStyle: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,

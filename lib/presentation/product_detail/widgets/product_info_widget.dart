@@ -29,7 +29,7 @@ class ProductInfoWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "BEST_SELLER".tr(),
+                context.tr("BEST_SELLER"),
                 style: TextStyle(fontSize: 14.sp, color: Colors.blue),
               ),
               SizedBox(height: 8.h),
@@ -52,7 +52,7 @@ class ProductInfoWidget extends StatelessWidget {
                   context.read<ProductDetailBloc>().add(ToggleDescriptionExpanded());
                 },
                 child: Text(
-                  state.isDescriptionExpanded ? "Show_less".tr() : "Show_more".tr(),
+                  state.isDescriptionExpanded ? context.tr("Show_less") : context.tr("Show_more"),
                   style: TextStyle(color: colorTheme.blueButton, fontSize: 18.sp, fontWeight: FontWeight.bold),
                 ),
               ),

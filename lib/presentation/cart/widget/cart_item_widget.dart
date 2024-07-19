@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vmo_assignment_ecommerce_shoes_shop/managers/enum/enum.dart';
 
 import '../../../domain/cart/cart_details/entity/cart_entity.dart';
 import '../bloc/cart_bloc.dart';
@@ -17,9 +18,10 @@ class CartItemWidget extends StatelessWidget {
     String? color;
 
     cartItem.selectedOptions?.forEach((option) {
-      if (option.groupName?.toLowerCase() == 'size') {
+      final variantOption = variantOptionMap[option.groupName?.toLowerCase()];
+      if (variantOption == VariantOption.size) {
         size = option.optionName;
-      } else if (option.groupName?.toLowerCase() == 'color') {
+      } else if (variantOption == VariantOption.color) {
         color = option.optionName;
       }
     });
@@ -60,8 +62,8 @@ class CartItemWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (size != null) Text('${"size".tr()}: $size', style: TextStyle(fontSize: 14.sp)),
-                    if (color != null) Text('${"color".tr()}: $color', style: TextStyle(fontSize: 14.sp)),
+                    if (size != null) Text('${context.tr("size")}: $size', style: TextStyle(fontSize: 14.sp)),
+                    if (color != null) Text('${context.tr("color")}: $color', style: TextStyle(fontSize: 14.sp)),
                   ],
                 ),
                 SizedBox(height: 8.h),
@@ -112,21 +114,21 @@ class CartItemWidget extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("delete_item".tr()),
-          content: Text("delete_item_confirmation".tr()),
+          title: Text(context.tr("delete_item")),
+          content: Text(context.tr("delete_item_confirmation")),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("cancel".tr()),
+              child: Text(context.tr("cancel")),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 context.read<CartBloc>().add(RemoveCartItems(cartItem));
               },
-              child: Text("delete".tr()),
+              child: Text(context.tr("delete")),
             ),
           ],
         );

@@ -19,8 +19,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool isDarkModeEnabled = false;
-  String selectedLanguage = 'English';
   final MyColorTheme colorTheme = MyColorTheme();
 
   @override
@@ -30,7 +28,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              "Account_and_Settings".tr(),
+              context.tr("Account_and_Settings"),
               style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold, color: Colors.white),
             ),
             backgroundColor: state.isDarkMode ? colorTheme.blueBottomBarDark : colorTheme.blueBottomBar,
@@ -42,7 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   padding: EdgeInsets.all(16.w),
                   children: [
                     Text(
-                      "Account".tr(),
+                      context.tr("Account"),
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
@@ -51,7 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     SizedBox(height: 10.h),
                     ListTile(
                       leading: Icon(Icons.person, size: 24.sp),
-                      title: Text("Profile_Settings".tr(), style: TextStyle(fontSize: 16.sp)),
+                      title: Text(context.tr("Profile_Settings"), style: TextStyle(fontSize: 16.sp)),
                       trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
                       onTap: () {
                         Navigator.pushNamed(context, '/profile');
@@ -60,7 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Divider(thickness: 1.5.h),
                     ListTile(
                       leading: Icon(Icons.local_shipping, size: 24.sp),
-                      title: Text("Shipping_Info".tr(), style: TextStyle(fontSize: 16.sp)),
+                      title: Text(context.tr("Shipping_Info"), style: TextStyle(fontSize: 16.sp)),
                       trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
                       onTap: () {
                         Navigator.pushNamed(context, '/shipping_info');
@@ -68,7 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     SizedBox(height: 18.h),
                     Text(
-                      "App_Settings".tr(),
+                      context.tr("App_Settings"),
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
@@ -78,7 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     BlocBuilder<ThemeBloc, ThemeState>(
                       builder: (context, state) {
                         return SwitchListTile(
-                          title: Text("Dark_Mode".tr(), style: TextStyle(fontSize: 16.sp)),
+                          title: Text(context.tr("Dark_Mode"), style: TextStyle(fontSize: 16.sp)),
                           value: state.isDarkMode,
                           onChanged: (bool value) {
                             context.read<ThemeBloc>().add(ThemeChanged(isDarkMode: value));
@@ -94,7 +92,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           return DropdownMenuItem<Locale>(
                             value: locale,
                             child: Text(
-                              locale.languageCode == 'en' ? 'English' : 'Vietnamese',
+                              locale.languageCode == 'en' ? context.tr("English") : context.tr("Vietnamese"),
                               style: TextStyle(fontSize: 16.sp),
                             ), // Display language name
                           );
@@ -108,7 +106,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             .value;
 
                         return ListTile(
-                          title: Text("Change_Language".tr(), style: TextStyle(fontSize: 16.sp)),
+                          title: Text(context.tr("Change_Language"), style: TextStyle(fontSize: 16.sp)),
                           trailing: DropdownButton<Locale>(
                             value: currentValue,
                             onChanged: (Locale? newValue) {
@@ -130,7 +128,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onPressed: () {
                     _showSignOutDialog(context);
                   },
-                  child: Text("Sign_Out".tr(), style: TextStyle(fontSize: 18.sp)),
+                  child: Text(context.tr("Sign_Out"), style: TextStyle(fontSize: 18.sp)),
                 ),
               ),
             ],
@@ -145,14 +143,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Sign_Out".tr()),
-          content: Text("Sign_Out_Confirmation".tr()),
+          title: Text(context.tr("Sign_Out")),
+          content: Text(context.tr("Sign_Out_Confirmation")),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Dismiss the dialog
               },
-              child: Text("Cancel".tr()),
+              child: Text(context.tr("Cancel")),
             ),
             TextButton(
               onPressed: () async {
@@ -160,7 +158,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Navigator.of(context).pop(); // Dismiss the dialog
                 Navigator.pushReplacementNamed(context, '/log_in');
               },
-              child: Text("Sign_Out".tr()),
+              child: Text(context.tr("Sign_Out")),
             ),
           ],
         );
@@ -174,11 +172,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            "language_change_title".tr(),
+            context.tr("language_change_title"),
             style: TextStyle(fontSize: 20.sp),
           ),
           content: Text(
-            "language_change_content".tr(),
+            context.tr("language_change_content"),
             style: TextStyle(fontSize: 16.sp),
           ),
           actions: <Widget>[
@@ -186,16 +184,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 Navigator.of(context).pop(); // Dismiss the dialog
               },
-              child: Text("Cancel".tr()),
+              child: Text(context.tr("Cancel")),
             ),
             TextButton(
               onPressed: () {
                 context.read<LanguageBloc>().add(ChangeLanguage(newValue));
                 context.setLocale(newValue); // Update locale using EasyLocalization
-                Restart.restartApp(); // Restart the app to apply changes
+                // Restart.restartApp(); // Restart the app to apply changes
                 Navigator.of(context).pop(); // Dismiss the dialog
               },
-              child: Text("Yes".tr()),
+              child: Text(context.tr("Yes")),
             ),
           ],
         );

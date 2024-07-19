@@ -29,7 +29,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search_Products".tr()),
+        title: Text(context.tr("Search_Products")),
         leading: GestureDetector(
             onTap: () {
               context.read<SearchBloc>().add(ClearSearchResults());
@@ -55,7 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide.none,
                 ),
-                hintText: "Search_for_shoes".tr(),
+                hintText: context.tr("Search_for_shoes"),
                 hintStyle: const TextStyle(fontSize: 14, color: Colors.black),
               ),
             ),
@@ -86,9 +86,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   products: state.products,
                 )
               else if (state.status == Status.failure)
-                Center(child: Text(state.errorMessage ?? "Error occurred".tr()))
+                Center(child: Text(state.errorMessage ?? context.tr("Error occurred")))
               else
-                Center(child: Text("Search_some_shoes".tr())),
+                Center(child: Text(context.tr("Search_some_shoes"))),
             ],
           );
         },

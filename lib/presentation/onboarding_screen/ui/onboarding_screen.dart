@@ -55,18 +55,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   PageWidget(
                     imageUrl: Assets.imagesOnboarding1,
-                    title: "title_onboarding_1".tr(),
-                    description: "description_onboarding_1".tr(),
+                    title: context.tr("title_onboarding_1"),
+                    description: context.tr("description_onboarding_1"),
                   ),
                   PageWidget(
                     imageUrl: Assets.imagesOnboarding2,
-                    title: "title_onboarding_2".tr(),
-                    description: "description_onboarding_2".tr(),
+                    title: context.tr("title_onboarding_2"),
+                    description: context.tr("description_onboarding_2"),
                   ),
                   PageWidget(
                     imageUrl: Assets.imagesOnboarding3,
-                    title: "title_onboarding_3".tr(),
-                    description: "description_onboarding_3".tr(),
+                    title: context.tr("title_onboarding_3"),
+                    description: context.tr("description_onboarding_3"),
                   ),
                 ],
               ),
@@ -78,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     Navigator.pushNamed(context, '/log_in');
                   },
                   child: Text(
-                    "Skip".tr(),
+                    context.tr("Skip"),
                     style: TextStyle(fontSize: 16.sp),
                   ),
                 ),
@@ -112,7 +112,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     state.currentPage == 0
                         ? OnboardingCustomButtonWidget(
                             colorTheme: colorTheme,
-                            textButton: 'next'.tr(),
+                            textButton: context.tr('next'),
                             onTap: () {
                               _controller.nextPage(duration: const Duration(milliseconds: 3), curve: Curves.elasticIn);
                             },
@@ -121,7 +121,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     state.currentPage == 1
                         ? OnboardingCustomButtonWidget(
                             colorTheme: colorTheme,
-                            textButton: 'next'.tr(),
+                            textButton: context.tr('next'),
                             onTap: () {
                               _controller.nextPage(duration: const Duration(milliseconds: 3), curve: Curves.elasticIn);
                             },
@@ -130,7 +130,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     state.currentPage == 2
                         ? OnboardingCustomButtonWidget(
                             colorTheme: colorTheme,
-                            textButton: 'get_started'.tr(),
+                            textButton: context.tr('get_started'),
                             onTap: () {
                               Navigator.pushNamed(context, '/log_in');
                             },

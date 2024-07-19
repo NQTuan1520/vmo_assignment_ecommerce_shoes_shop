@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path/path.dart';
 
 import '../../../domain/cart/discount/entity/discount_entity.dart';
 import '../../../managers/enum/enum.dart';
@@ -22,8 +23,8 @@ class VoucherSelectionDialogWidget extends StatelessWidget {
             width: double.infinity.w,
           );
         } else if (state.status == Status.failure) {
-          return const Center(
-            child: Text('Failed to load vouchers.'),
+          return Center(
+            child: Text(context.tr("Failed to load vouchers")),
           );
         } else {
           return Dialog(
@@ -40,7 +41,7 @@ class VoucherSelectionDialogWidget extends StatelessWidget {
                       Align(
                         alignment: Alignment.topCenter,
                         child: Text(
-                          "select_voucher".tr(),
+                          context.tr("select_voucher"),
                           style: TextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.bold,
@@ -114,7 +115,7 @@ Widget _buildVoucherItem(BuildContext context, DiscountDataEntity discount) {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text("apply".tr(), style: TextStyle(fontSize: 16.sp, color: Colors.green)),
+                Text(context.tr("apply"), style: TextStyle(fontSize: 16.sp, color: Colors.green)),
               ],
             ),
             SizedBox(height: 16.h),

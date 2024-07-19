@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MyDioException implements Exception {
   late String errorMessage;
@@ -8,29 +9,29 @@ class MyDioException implements Exception {
   MyDioException.fromDioError(DioException dioError) {
     switch (dioError.type) {
       case DioExceptionType.cancel:
-        errorMessage = 'Request to the server was cancelled.';
+        errorMessage = tr('request_cancelled');
         break;
       case DioExceptionType.connectionTimeout:
-        errorMessage = 'Connection timed out.';
+        errorMessage = tr('connection_timeout');
         break;
       case DioExceptionType.receiveTimeout:
-        errorMessage = 'Receiving timeout occurred.';
+        errorMessage = tr('receive_timeout');
         break;
       case DioExceptionType.sendTimeout:
-        errorMessage = 'Request send timeout.';
+        errorMessage = tr('send_timeout');
         break;
       case DioExceptionType.badResponse:
         errorMessage = _handleStatusCode(dioError.response?.statusCode);
         break;
       case DioExceptionType.unknown:
         if (dioError.message!.contains('SocketException')) {
-          errorMessage = 'No Internet.';
+          errorMessage = tr('no_internet');
           break;
         }
-        errorMessage = 'Unexpected error occurred.';
+        errorMessage = tr('unexpected_error');
         break;
       default:
-        errorMessage = 'Something went wrong';
+        errorMessage = tr('something_went_wrong');
         break;
     }
   }
@@ -38,25 +39,25 @@ class MyDioException implements Exception {
   String _handleStatusCode(int? statusCode) {
     switch (statusCode) {
       case 400:
-        return 'Bad request.';
+        return tr('bad_request');
       case 401:
-        return 'Authentication failed.';
+        return tr('authentication_failed');
       case 403:
-        return 'The authenticated user is not allowed to access the specified API endpoint.';
+        return tr('access_denied');
       case 404:
-        return 'The requested resource does not exist.';
+        return tr('resource_not_found');
       case 405:
-        return 'Method not allowed. Please check the Allow header for the allowed HTTP methods.';
+        return tr('method_not_allowed');
       case 415:
-        return 'Unsupported media type. The requested content type or version number is invalid.';
+        return tr('unsupported_media_type');
       case 422:
-        return 'Data validation failed.';
+        return tr('data_validation_failed');
       case 429:
-        return 'Too many requests.';
+        return tr('too_many_requests');
       case 500:
-        return 'Internal server error.';
+        return tr('internal_server_error');
       default:
-        return 'Oops something went wrong!';
+        return tr('generic_error');
     }
   }
 

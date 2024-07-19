@@ -57,14 +57,14 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       listener: (context, state) {
         if (state.status == Status.success) {
-          ToastUtils.showSuccessToast(message: "sign_in_success".tr());
+          ToastUtils.showSuccessToast(message: context.tr("sign_in_success"));
           Navigator.pushNamedAndRemoveUntil(
             context,
             '/main',
             (route) => false,
           );
         } else if (state.status == Status.failure) {
-          ToastUtils.showErrorToast(message: "${"some_error_occurred".tr()}: ${state.errorMessage}");
+          ToastUtils.showErrorToast(message: "${context.tr("some_error_occurred")}: ${state.errorMessage}");
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               Center(
                                 child: Text(
-                                  "hello".tr(),
+                                  context.tr("hello"),
                                   style: TextStyle(
                                     fontSize: 32.sp,
                                     fontWeight: FontWeight.w600,
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               SizedBox(height: 5.h),
                               Center(
                                 child: Text(
-                                  "welcome".tr(),
+                                  context.tr("welcome"),
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     color: Colors.grey[500],
@@ -111,14 +111,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               SizedBox(height: 30.h),
                               CustomTextField(
                                 controller: _emailController,
-                                labelText: "email_address".tr(),
-                                hintText: "email_address_hint_text".tr(),
+                                labelText: context.tr("email_address"),
+                                hintText: context.tr("email_address_hint_text"),
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) {
                                   if (value != null && value.isNotEmpty) {
                                     return null;
                                   } else {
-                                    return "email_empty_error".tr();
+                                    return context.tr("email_empty_error");
                                   }
                                 },
                               ),
@@ -127,8 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 builder: (context, state) {
                                   return CustomTextField(
                                     controller: _passwordController,
-                                    labelText: "password".tr(),
-                                    hintText: "password_hint_text".tr(),
+                                    labelText: context.tr("password"),
+                                    hintText: context.tr("password_hint_text"),
                                     isObscure: !state.showPassword,
                                     suffixIcon: IconButton(
                                       onPressed: () {
@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       if (value != null && value.isNotEmpty) {
                                         return null;
                                       } else {
-                                        return "password_empty_error".tr();
+                                        return context.tr("password_empty_error");
                                       }
                                     },
                                   );
@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               context.read<LoginBloc>().add(ToggleRememberMe());
                                             },
                                           ),
-                                          Text("Remember_me".tr()),
+                                          Text(context.tr("Remember_me")),
                                         ],
                                       ),
                                       TextButton(
@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             Navigator.pushNamed(context, '/forgot_password');
                                           },
                                           child: Text(
-                                            "recovery_password".tr(),
+                                            context.tr("recovery_password"),
                                           )),
                                     ],
                                   );
@@ -180,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 50.h,
                                 width: double.infinity.w,
                                 color: _colorTheme.blueButton,
-                                textButton: "sign_in".tr(),
+                                textButton: context.tr("sign_in"),
                                 textStyle: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -209,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 isPrefixIcon: true,
                                 prefixIcon: Assets.imagesGoogle,
                                 sizeIcon: 22.sp,
-                                textButton: "sign_in_with_google".tr(),
+                                textButton: context.tr("sign_in_with_google"),
                                 textStyle: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
@@ -230,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 width: double.infinity.w,
                                 color: Colors.redAccent[100],
                                 sizeIcon: 22.sp,
-                                textButton: "sign_in_with_guest".tr(),
+                                textButton: context.tr("sign_in_with_guest"),
                                 textStyle: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
@@ -258,7 +258,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "no_account".tr(),
+                                  context.tr("no_account"),
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     color: Colors.grey[500],
@@ -269,7 +269,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Navigator.pushNamed(context, '/sign_up');
                                   },
                                   child: Text(
-                                    "sign_up_login".tr(),
+                                    context.tr("sign_up_login"),
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       color: Colors.black,

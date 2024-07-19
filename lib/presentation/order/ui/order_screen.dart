@@ -29,7 +29,7 @@ class _OrderScreenState extends State<OrderScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Orders".tr(),
+          context.tr("Orders"),
           style: TextStyle(fontSize: 22.sp),
         ),
       ),
@@ -45,7 +45,7 @@ class _OrderScreenState extends State<OrderScreen> {
               message: state.errorMessage ?? '',
             );
           } else if (state.status == Status.success && state.orders.isEmpty) {
-            return Center(child: Text("No_orders_available".tr()));
+            return Center(child: Text(context.tr("No_orders_available")));
           } else if (state.status == Status.success) {
             return ListView.builder(
               padding: EdgeInsets.all(8.r),
@@ -56,7 +56,7 @@ class _OrderScreenState extends State<OrderScreen> {
               },
             );
           } else {
-            return Center(child: Text("Something_went_wrong".tr()));
+            return Center(child: Text(context.tr("Something_went_wrong")));
           }
         },
       ),

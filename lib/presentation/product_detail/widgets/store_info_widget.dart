@@ -31,7 +31,7 @@ class StoreInfoWidget extends StatelessWidget {
                           _buildCategoryItem(category.assets?.first.url ?? ''),
                           SizedBox(width: 8.w),
                           Text(
-                            "${category.name ?? ''} ${"Store".tr()}",
+                            "${category.name ?? ''} ${context.tr("Store")}",
                             style: TextStyle(fontSize: 20.sp),
                           ),
                         ],
@@ -41,9 +41,9 @@ class StoreInfoWidget extends StatelessWidget {
             ),
           );
         } else if (state.categoriesStatus == Status.failure) {
-          return Center(child: Text(state.errorMessage ?? "Error_occurred".tr()));
+          return Center(child: Text(state.errorMessage ?? context.tr("Error_occurred")));
         } else {
-          return Center(child: Text("No_categories_available".tr()));
+          return Center(child: Text(context.tr("No_categories_available")));
         }
       },
     );

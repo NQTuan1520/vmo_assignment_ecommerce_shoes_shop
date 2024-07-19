@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path/path.dart';
 
 import '../../../domain/order/entity/order_entity.dart';
 
@@ -17,7 +18,7 @@ class OrderDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Order_Details".tr(),
+          context.tr("Order_Details"),
           style: TextStyle(fontSize: 22.sp),
         ),
       ),
@@ -26,21 +27,21 @@ class OrderDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSectionTitle("Items".tr()),
+            _buildSectionTitle(context.tr("Items")),
             SizedBox(height: 8.h),
-            _buildOrderItems(),
+            _buildOrderItems(context),
             SizedBox(height: 16.h),
-            _buildSectionTitle("Order_Information".tr()),
+            _buildSectionTitle(context.tr("Order_Information")),
             SizedBox(height: 8.h),
-            _buildOrderInfo(),
+            _buildOrderInfo(context),
             SizedBox(height: 16.h),
-            _buildSectionTitle("Customer_Information".tr()),
+            _buildSectionTitle(context.tr("Customer_Information")),
             SizedBox(height: 8.h),
-            _buildCustomerInfo(),
+            _buildCustomerInfo(context),
             SizedBox(height: 16.h),
-            _buildSectionTitle("Shipping_Information".tr()),
+            _buildSectionTitle(context.tr("Shipping_Information")),
             SizedBox(height: 8.h),
-            _buildShippingInfo(),
+            _buildShippingInfo(context),
           ],
         ),
       ),
@@ -54,51 +55,51 @@ class OrderDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildOrderInfo() {
+  Widget _buildOrderInfo(BuildContext context) {
     return _buildCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoRow("Order_ID".tr(), order.id ?? ''),
-          _buildInfoRow("Status".tr(), order.status ?? ''),
-          _buildInfoRow(
-              "Created".tr(), DateFormat.yMMMd().format(DateTime.fromMillisecondsSinceEpoch(order.created! * 1000))),
-          _buildInfoRow("Total".tr(), order.orderValue?.formatted ?? ''),
+          _buildInfoRow(context.tr("Order_ID"), order.id ?? ''),
+          _buildInfoRow(context.tr("Status"), order.status ?? ''),
+          _buildInfoRow(context.tr("Created"),
+              DateFormat.yMMMd().format(DateTime.fromMillisecondsSinceEpoch(order.created! * 1000))),
+          _buildInfoRow(context.tr("Total"), order.orderValue?.formatted ?? ''),
         ],
       ),
     );
   }
 
-  Widget _buildCustomerInfo() {
+  Widget _buildCustomerInfo(BuildContext context) {
     return _buildCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoRow("Customer".tr(), '${order.customer?.firstName} ${order.customer?.lastName}'),
-          _buildInfoRow("Email".tr(), order.customer?.email ?? ''),
-          _buildInfoRow("Phone".tr(), order.customer?.phone ?? ''),
+          _buildInfoRow(context.tr("Customer"), '${order.customer?.firstName} ${order.customer?.lastName}'),
+          _buildInfoRow(context.tr("Email"), order.customer?.email ?? ''),
+          _buildInfoRow(context.tr("Phone"), order.customer?.phone ?? ''),
         ],
       ),
     );
   }
 
-  Widget _buildShippingInfo() {
+  Widget _buildShippingInfo(BuildContext context) {
     return _buildCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoRow("Name".tr(), order.shipping?.name ?? ''),
-          _buildInfoRow("Street".tr(), order.shipping?.street ?? ''),
-          _buildInfoRow("City".tr(), order.shipping?.townCity ?? ''),
-          _buildInfoRow("State".tr(), order.shipping?.countyState ?? ''),
-          _buildInfoRow("Postal_Code".tr(), order.shipping?.postalZipCode ?? ''),
-          _buildInfoRow("Country".tr(), order.shipping?.country ?? ''),
+          _buildInfoRow(context.tr("Name"), order.shipping?.name ?? ''),
+          _buildInfoRow(context.tr("Street"), order.shipping?.street ?? ''),
+          _buildInfoRow(context.tr("City"), order.shipping?.townCity ?? ''),
+          _buildInfoRow(context.tr("State"), order.shipping?.countyState ?? ''),
+          _buildInfoRow(context.tr("Postal_Code"), order.shipping?.postalZipCode ?? ''),
+          _buildInfoRow(context.tr("Country"), order.shipping?.country ?? ''),
         ],
       ),
     );
   }
 
-  Widget _buildOrderItems() {
+  Widget _buildOrderItems(BuildContext context) {
     return _buildCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,10 +122,10 @@ class OrderDetailsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('${item.productName}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
-                          Text('${"Price".tr()}: ${item.price?.formattedWithSymbol}',
+                          Text('${context.tr("Price")}: ${item.price?.formattedWithSymbol}',
                               style: TextStyle(fontSize: 14.sp, color: Colors.grey)),
                           Text(
-                            '${"Quantity".tr()}: ${item.quantity}',
+                            '${context.tr("Quantity")}: ${item.quantity}',
                             style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                           ),
                         ],

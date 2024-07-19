@@ -14,7 +14,7 @@ class ProductGridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (products.isEmpty) {
-      return Center(child: Text("No_products_found".tr()));
+      return Center(child: Text(context.tr("No_products_found")));
     }
     return Expanded(
       child: GridView.builder(

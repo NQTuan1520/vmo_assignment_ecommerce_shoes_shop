@@ -87,9 +87,9 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       await _auth.signOut();
       await _prefs.setBool('isGuest', true);
-      ToastUtils.showSuccessToast(message: "Successfully_signed_out".tr());
+      ToastUtils.showSuccessToast(message: tr("Successfully_signed_out"));
     } catch (e) {
-      ToastUtils.showErrorToast(message: '${"Sign_out_failed".tr()}: $e');
+      ToastUtils.showErrorToast(message: '${tr("Sign_out_failed")}: $e');
     }
   }
 
@@ -132,18 +132,18 @@ class AuthRepositoryImpl implements AuthRepository {
     if (e is FirebaseAuthException) {
       switch (e.code) {
         case 'email-already-in-use':
-          return "email_already_in_use".tr();
+          return tr("email_already_in_use");
         case 'invalid-email':
-          return "invalid_email".tr();
+          return tr("invalid_email");
         case 'user-not-found':
-          return "user_not_found".tr();
+          return tr("user_not_found");
         case 'wrong-password':
-          return "wrong_password".tr();
+          return tr("wrong_password");
         default:
-          return "${"error_occurred".tr()} ${e.message}";
+          return tr("${"error_occurred"} ${e.message}");
       }
     } else {
-      return "${"error_occurred".tr()} $e";
+      return "${tr("error_occurred")} $e";
     }
   }
 }

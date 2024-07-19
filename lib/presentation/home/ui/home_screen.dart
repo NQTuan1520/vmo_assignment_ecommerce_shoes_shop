@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             tap: () {
                               _onFetchData();
                             },
-                            message: "Try to reload".tr(),
+                            message: context.tr("Try to reload"),
                           ),
                         );
                       } else if (state.status == Status.success) {
@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       } else {
                         return SliverToBoxAdapter(
                           child: Center(
-                            child: Text('No categories available'.tr()),
+                            child: Text(context.tr('No categories available')),
                           ),
                         );
                       }
@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         );
                       } else if (state.status == Status.failure) {
                         return SliverFillRemaining(
-                          child: Center(child: Text('${"Failed to load products".tr()} ${state.errorMessage}')),
+                          child: Center(child: Text('${context.tr("Failed to load products")} ${state.errorMessage}')),
                         );
                       } else if (state.status == Status.success) {
                         return ProductListWidget(
@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         );
                       } else {
                         return SliverToBoxAdapter(
-                          child: Center(child: Text("No products available".tr())),
+                          child: Center(child: Text(context.tr("No products available"))),
                         );
                       }
                     },

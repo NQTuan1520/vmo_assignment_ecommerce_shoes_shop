@@ -60,7 +60,7 @@ class SliverAppBarCustomWidget extends StatelessWidget {
       title: AnimatedOpacity(
         opacity: isScrolled ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 300),
-        child: Text("Shoes_Shop".tr(), style: TextStyle(fontSize: 20.sp)),
+        child: Text(context.tr("Shoes_Shop"), style: TextStyle(fontSize: 20.sp)),
       ),
       centerTitle: true,
       expandedHeight: 280.0.h,
@@ -88,7 +88,7 @@ class SliverAppBarCustomWidget extends StatelessWidget {
                   child: FadeAnimation(
                     1,
                     Text(
-                      "Find_Your_Shoes_Collections".tr(),
+                      context.tr("Find_Your_Shoes_Collections"),
                       style: TextStyle(
                         fontSize: isScrolled ? 20.sp : 28.sp,
                       ),
@@ -132,7 +132,7 @@ class SliverAppBarCustomWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10.r),
                         borderSide: BorderSide.none,
                       ),
-                      hintText: "Looking_for_shoes".tr(),
+                      hintText: context.tr("Looking_for_shoes"),
                       hintStyle: TextStyle(fontSize: 16.sp, color: Colors.black),
                     ),
                     onTap: () {

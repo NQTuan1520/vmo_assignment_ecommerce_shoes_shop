@@ -34,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if (state.status == Status.loading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state.status == Status.failure) {
-            return Center(child: Text('${"Failed to load profile".tr()} ${state.errorMessage}'));
+            return Center(child: Text('${context.tr("Failed to load profile")} ${state.errorMessage}'));
           } else if (state.status == Status.success) {
             _nameController.text = state.name ?? '';
             _emailController.text = state.email ?? '';
@@ -104,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                         prefixIcon: const Icon(Icons.person, color: Colors.purple),
-                        labelText: "Name".tr(),
+                        labelText: context.tr("Name"),
                         labelStyle: TextStyle(fontSize: 18.sp),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.r),
@@ -120,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                         prefixIcon: const Icon(Icons.email, color: Colors.redAccent),
-                        labelText: "Email".tr(),
+                        labelText: context.tr("Email"),
                         labelStyle: TextStyle(fontSize: 18.sp),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.r),
@@ -136,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                         prefixIcon: const Icon(Icons.phone, color: Colors.green),
-                        labelText: "Phone_Number".tr(),
+                        labelText: context.tr("Phone_Number"),
                         labelStyle: TextStyle(fontSize: 18.sp),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.r),
@@ -164,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ));
                           },
                           child: Text(
-                            "Update_Profile".tr(),
+                            context.tr("Update_Profile"),
                             style: TextStyle(fontSize: 18.sp, color: Colors.white),
                           ),
                         ),

@@ -45,7 +45,7 @@ class PriceAndAddToCartButtonWidget extends StatelessWidget {
             height: 50.h,
             width: 180.w,
             color: colorTheme.blueButton,
-            textButton: "Buy_Product".tr(),
+            textButton: context.tr("Buy_Product"),
             textStyle: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,

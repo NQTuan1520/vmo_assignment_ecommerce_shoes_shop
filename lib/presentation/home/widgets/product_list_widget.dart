@@ -20,7 +20,7 @@ class ProductListWidget extends StatelessWidget {
         [
           _buildSection(
             context,
-            "All_Products".tr(),
+            context.tr("All_Products"),
             products,
             (product) => _buildProductCard(context, product),
           ),
@@ -57,7 +57,7 @@ class ProductListWidget extends StatelessWidget {
                     LoginUIHelpers.checkLoginStatusAndPrompt(context, '/products', null);
                   },
                   child: Text(
-                    "See_all".tr(),
+                    context.tr("See_all"),
                     style: TextStyle(fontSize: 16.sp),
                   ),
                 ),

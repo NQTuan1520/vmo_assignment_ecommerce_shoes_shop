@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          labelText.tr(),
+          context.tr(labelText),
           style: TextStyle(fontSize: 16.sp),
         ),
         SizedBox(height: 8.h),

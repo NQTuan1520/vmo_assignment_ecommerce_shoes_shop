@@ -24,25 +24,25 @@ class MenuScreen extends StatelessWidget {
         children: [
           SizedBox(height: 10.h),
           Text(
-            "Hey".tr(),
+            context.tr("Hey"),
             style: TextStyle(color: Colors.grey, fontSize: 20.sp),
           ),
           SizedBox(height: 8.h),
           Text(
-            profileName ?? "User".tr(),
+            profileName ?? context.tr("User"),
             style: TextStyle(color: Colors.white, fontSize: 28.sp, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 32.h),
-          _buildDrawerItem(icon: Icons.person, text: "Profile".tr(), onTap: () => onMenuItemClicked(0)),
-          _buildDrawerItem(icon: Icons.shopping_bag, text: "My_Cart".tr(), onTap: () => onMenuItemClicked(1)),
-          _buildDrawerItem(icon: Icons.favorite, text: "Favorite".tr(), onTap: () => onMenuItemClicked(2)),
-          _buildDrawerItem(icon: Icons.list, text: "Orders".tr(), onTap: () => onMenuItemClicked(3)),
-          _buildDrawerItem(icon: Icons.settings, text: "Settings".tr(), onTap: () => onMenuItemClicked(4)),
+          _buildDrawerItem(icon: Icons.person, text: context.tr("Profile"), onTap: () => onMenuItemClicked(0)),
+          _buildDrawerItem(icon: Icons.shopping_bag, text: context.tr("My_Cart"), onTap: () => onMenuItemClicked(1)),
+          _buildDrawerItem(icon: Icons.favorite, text: context.tr("Favorite"), onTap: () => onMenuItemClicked(2)),
+          _buildDrawerItem(icon: Icons.list, text: context.tr("Orders"), onTap: () => onMenuItemClicked(3)),
+          _buildDrawerItem(icon: Icons.settings, text: context.tr("Settings"), onTap: () => onMenuItemClicked(4)),
           const Spacer(),
           Divider(color: Colors.grey.withOpacity(0.5)),
           _buildDrawerItem(
             icon: Icons.exit_to_app,
-            text: "Sign_Out".tr(),
+            text: context.tr("Sign_Out"),
             onTap: () {
               _showSignOutDialog(context);
             },
@@ -69,11 +69,11 @@ class MenuScreen extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            "Sign_Out".tr(),
+            context.tr("Sign_Out"),
             style: TextStyle(fontSize: 20.sp),
           ),
           content: Text(
-            "Sign_Out_Confirmation".tr(),
+            context.tr("Sign_Out_Confirmation"),
             style: TextStyle(fontSize: 16.sp),
           ),
           actions: <Widget>[
@@ -81,7 +81,7 @@ class MenuScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("Cancel".tr()),
+              child: Text(context.tr("Cancel")),
             ),
             TextButton(
               onPressed: () {
@@ -89,7 +89,7 @@ class MenuScreen extends StatelessWidget {
                 Navigator.of(context).pop();
                 Navigator.pushReplacementNamed(context, '/log_in');
               },
-              child: Text("Sign_Out_Action".tr()),
+              child: Text(context.tr("Sign_Out_Action")),
             ),
           ],
         );

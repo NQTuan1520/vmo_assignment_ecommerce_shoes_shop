@@ -79,7 +79,7 @@ class VariantOptionsWidget extends StatelessWidget {
             ),
           );
         } else if (state.status == Status.failure) {
-          return Center(child: Text(state.errorMessage ?? "Error_occurred".tr()));
+          return Center(child: Text(state.errorMessage ?? context.tr("Error_occurred")));
         } else {
           return const SizedBox.shrink();
         }

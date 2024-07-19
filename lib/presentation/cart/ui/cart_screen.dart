@@ -43,7 +43,7 @@ class _CartScreenState extends State<CartScreen> {
       children: [
         Scaffold(
           appBar: AppBar(
-            title: const Text('My Cart'),
+            title: Text(context.tr("My_Cart")),
             leading: GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
@@ -76,7 +76,7 @@ class _CartScreenState extends State<CartScreen> {
                       Expanded(
                         child: state.cartItems.isEmpty
                             ? Center(
-                                child: Text("no_item_in_cart".tr()),
+                                child: Text(context.tr("no_item_in_cart")),
                               )
                             : FadeAnimation(
                                 1.0,

@@ -48,13 +48,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state.status == Status.success) {
-          ToastUtils.showSuccessToast(message: "sign_up_success".tr());
+          ToastUtils.showSuccessToast(message: context.tr("sign_up_success"));
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const LoginScreenProvider()),
           );
         } else if (state.status == Status.failure) {
-          ToastUtils.showErrorToast(message: "${"some_error_occurred".tr()}: ${state.errorMessage}");
+          ToastUtils.showErrorToast(message: "${context.tr("some_error_occurred")}: ${state.errorMessage}");
         }
       },
       child: Stack(
@@ -80,7 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         children: [
                           Center(
                             child: Text(
-                              "create_account".tr(),
+                              context.tr("create_account"),
                               style: TextStyle(
                                 fontSize: 28.sp,
                                 fontWeight: FontWeight.w600,
@@ -89,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           Center(
                             child: Text(
-                              "create_account_text".tr(),
+                              context.tr("create_account_text"),
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 color: Colors.grey[500],
@@ -101,14 +101,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           CustomTextField(
                             controller: _emailController,
-                            labelText: "email_address".tr(),
-                            hintText: "email_address_hint_text".tr(),
+                            labelText: context.tr("email_address"),
+                            hintText: context.tr("email_address_hint_text"),
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value != null && value.isNotEmpty) {
                                 return null;
                               } else {
-                                return "email_empty_error".tr();
+                                return context.tr("email_empty_error");
                               }
                             },
                           ),
@@ -117,14 +117,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           CustomTextField(
                             controller: _nameController,
-                            labelText: "name".tr(),
-                            hintText: "name_hint_text".tr(),
+                            labelText: context.tr("name"),
+                            hintText: context.tr("name_hint_text"),
                             keyboardType: TextInputType.name,
                             validator: (value) {
                               if (value != null && value.isNotEmpty) {
                                 return null;
                               } else {
-                                return "name_empty_error".tr();
+                                return context.tr("name_empty_error");
                               }
                             },
                           ),
@@ -133,14 +133,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           CustomTextField(
                             controller: _telephoneController,
-                            labelText: "telephone".tr(),
-                            hintText: "telephone_hint_text".tr(),
+                            labelText: context.tr("telephone"),
+                            hintText: context.tr("telephone_hint_text"),
                             keyboardType: TextInputType.phone,
                             validator: (value) {
                               if (value != null && value.isNotEmpty) {
                                 return null;
                               } else {
-                                return "telephone_empty_error".tr();
+                                return context.tr("telephone_empty_error");
                               }
                             },
                           ),
@@ -151,8 +151,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             builder: (context, state) {
                               return CustomTextField(
                                 controller: _passwordController,
-                                labelText: "password".tr(),
-                                hintText: "password_hint_text".tr(),
+                                labelText: context.tr("password"),
+                                hintText: context.tr("password_hint_text"),
                                 isObscure: !state.showPassword,
                                 suffixIcon: IconButton(
                                   onPressed: () {
@@ -164,7 +164,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   if (value != null && value.isNotEmpty) {
                                     return null;
                                   } else {
-                                    return "password_empty_error".tr();
+                                    return context.tr("password_empty_error");
                                   }
                                 },
                               );
@@ -177,7 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: 50.h,
                             width: double.infinity.w,
                             color: _colorTheme.blueButton,
-                            textButton: "sign_up".tr(),
+                            textButton: context.tr("sign_up"),
                             textStyle: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -207,7 +207,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             isPrefixIcon: true,
                             prefixIcon: Assets.imagesGoogle,
                             sizeIcon: 22.sp,
-                            textButton: "sign_in_with_google".tr(),
+                            textButton: context.tr("sign_in_with_google"),
                             textStyle: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
@@ -218,7 +218,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             onTap: () {
                               context.read<LoginBloc>().add(LoginWithGoogle());
-                              ToastUtils.showSuccessToast(message: "sign_in_success".tr());
+                              ToastUtils.showSuccessToast(message: context.tr("sign_in_success"));
                               Navigator.pushNamedAndRemoveUntil(
                                 context,
                                 '/main',
@@ -237,7 +237,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "have_account".tr(),
+                            context.tr("have_account"),
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: Colors.grey[500],
@@ -248,7 +248,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Navigator.pop(context);
                             },
                             child: Text(
-                              "sign_in".tr(),
+                              context.tr("sign_in"),
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: Colors.black,

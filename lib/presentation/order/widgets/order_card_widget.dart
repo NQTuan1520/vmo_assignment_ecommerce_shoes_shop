@@ -47,18 +47,19 @@ class OrderCardWidget extends StatelessWidget {
   }
 
   Widget _buildOrderHeader(OrderDataEntity order) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${"Order_ID".tr()}${order.id}',
+          '${context.tr("Order_ID")}${order.id}',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
         ),
         Text(
-          '${"Status".tr()} ${order.status}',
+          '${context.tr("Status")} ${order.status}',
           style: TextStyle(
             color: order.status == 'open' ? Colors.green : Colors.red,
             fontWeight: FontWeight.bold,
+            fontSize: 13.sp,
           ),
         ),
       ],
@@ -70,12 +71,12 @@ class OrderCardWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${"Created".tr()} ${DateTime.fromMillisecondsSinceEpoch(order.created! * 1000)}',
+          '${context.tr("Created")} ${DateTime.fromMillisecondsSinceEpoch(order.created! * 1000)}',
           style: TextStyle(fontSize: 14.sp),
         ),
         SizedBox(height: 4.h),
         Text(
-          "${"Total".tr()}: ${order.orderValue?.formatted}\$",
+          "${context.tr("Total")}: ${order.orderValue?.formatted}\$",
           style: TextStyle(fontSize: 14.sp),
         ),
       ],
@@ -87,7 +88,7 @@ class OrderCardWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Items".tr(),
+          context.tr("Items"),
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
         ),
         ...?order.order?.lineItems?.map(
@@ -120,12 +121,12 @@ class OrderCardWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${"Customer".tr()} ${order.customer?.firstName} ${order.customer?.lastName}',
+          '${context.tr("Customer")} ${order.customer?.firstName} ${order.customer?.lastName}',
           style: TextStyle(fontSize: 14.sp),
         ),
         SizedBox(height: 4.h),
         Text(
-          '${"Email".tr()} ${order.customer?.email}',
+          '${context.tr("Email")} ${order.customer?.email}',
           style: TextStyle(fontSize: 14.sp),
         ),
       ],

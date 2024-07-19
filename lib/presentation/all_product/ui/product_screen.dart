@@ -35,7 +35,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("All_Products".tr()),
+        title: Text(context.tr("All_Products")),
       ),
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {

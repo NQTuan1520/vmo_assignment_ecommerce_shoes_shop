@@ -45,9 +45,9 @@ class PaymentCardWidget extends StatelessWidget {
         children: [
           PaymentTextFieldWidget(
             controller: cardNumberController,
-            labelText: "card_number".tr(),
+            labelText: context.tr("card_number"),
             hintText: "XXXX XXXX XXXX XXXX",
-            errorText: "card_number_error".tr(),
+            errorText: context.tr("card_number_error"),
             inputFormatters: [CardNumberInputFormatter()],
           ),
           SizedBox(height: 16.h),
@@ -56,18 +56,18 @@ class PaymentCardWidget extends StatelessWidget {
               Expanded(
                 child: PaymentTextFieldWidget(
                   controller: expiryMonthController,
-                  labelText: "expiry_month".tr(),
+                  labelText: context.tr("expiry_month"),
                   hintText: "MM",
-                  errorText: "expiry_month_error".tr(),
+                  errorText: context.tr("expiry_month_error"),
                 ),
               ),
               SizedBox(width: 16.w),
               Expanded(
                 child: PaymentTextFieldWidget(
                   controller: expiryYearController,
-                  labelText: "expiry_year".tr(),
+                  labelText: context.tr("expiry_year"),
                   hintText: "YY",
-                  errorText: "expiry_year_error".tr(),
+                  errorText: context.tr("expiry_year_error"),
                 ),
               ),
             ],
@@ -75,9 +75,9 @@ class PaymentCardWidget extends StatelessWidget {
           SizedBox(height: 16.h),
           PaymentTextFieldWidget(
             controller: cvcController,
-            labelText: "cvc".tr(),
+            labelText: context.tr("cvc"),
             hintText: "CVC",
-            errorText: "cvc_error".tr(),
+            errorText: context.tr("cvc_error"),
           ),
         ],
       ),

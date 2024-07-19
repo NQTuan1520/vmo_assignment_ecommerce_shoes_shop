@@ -84,7 +84,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         children: [
           Scaffold(
             appBar: AppBar(
-              title: Text("checkout".tr()),
+              title: Text(context.tr("checkout")),
             ),
             body: BlocBuilder<ShippingBloc, ShippingState>(
               builder: (context, shippingState) {
@@ -100,52 +100,52 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       key: _formKey,
                       child: ListView(
                         children: [
-                          SectionTitleWidget(title: "shipping_info".tr()),
+                          SectionTitleWidget(title: context.tr("shipping_info")),
                           SizedBox(height: 16.h),
                           TextFormFieldCustomWidget(
                               controller: _nameController,
-                              labelText: "ship_name".tr(),
+                              labelText: context.tr("ship_name"),
                               icon: Icons.person,
-                              errorText: "ship_name_error".tr()),
+                              errorText: "ship_name_error"),
                           TextFormFieldCustomWidget(
                               controller: _emailController,
-                              labelText: "ship_email".tr(),
+                              labelText: context.tr("ship_email"),
                               icon: Icons.email,
-                              errorText: "ship_email_error".tr()),
+                              errorText: context.tr("ship_email_error")),
                           TextFormFieldCustomWidget(
                               controller: _phoneController,
-                              labelText: "ship_phone".tr(),
+                              labelText: context.tr("ship_phone"),
                               icon: Icons.phone,
-                              errorText: "ship_phone_error".tr(),
+                              errorText: context.tr("ship_phone_error"),
                               keyboardType: TextInputType.phone),
                           TextFormFieldCustomWidget(
                               controller: _streetController,
-                              labelText: "ship_street".tr(),
+                              labelText: context.tr("ship_street"),
                               icon: Icons.home,
-                              errorText: "ship_street_error".tr()),
+                              errorText: context.tr("ship_street_error")),
                           TextFormFieldCustomWidget(
                               controller: _cityController,
-                              labelText: "ship_city".tr(),
+                              labelText: context.tr("ship_city"),
                               icon: Icons.location_city,
-                              errorText: "ship_city_error".tr()),
+                              errorText: context.tr("ship_city_error")),
                           TextFormFieldCustomWidget(
                               controller: _stateController,
-                              labelText: "ship_state".tr(),
+                              labelText: context.tr("ship_state"),
                               icon: Icons.location_city,
-                              errorText: "ship_state_error".tr()),
+                              errorText: context.tr("ship_state_error")),
                           TextFormFieldCustomWidget(
                             controller: _zipController,
-                            labelText: "ship_postal_code".tr(),
+                            labelText: context.tr("ship_postal_code"),
                             icon: Icons.location_city,
-                            errorText: "ship_postal_code_error".tr(),
+                            errorText: context.tr("ship_postal_code_error"),
                           ),
                           TextFormFieldCustomWidget(
                               controller: _countryController,
-                              labelText: "ship_country".tr(),
+                              labelText: context.tr("ship_country"),
                               icon: Icons.location_city,
-                              errorText: "ship_country_error".tr()),
+                              errorText: context.tr("ship_country_error")),
                           SizedBox(height: 16.h),
-                          SectionTitleWidget(title: "payment_information".tr()),
+                          SectionTitleWidget(title: context.tr("payment_information")),
                           SizedBox(height: 16.h),
                           PaymentCardWidget(
                             cardNumberController: _cardNumberController,
@@ -159,7 +159,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             height: 50.h,
                             width: double.infinity,
                             color: _colorTheme.blueButton,
-                            textButton: "place_order".tr(),
+                            textButton: context.tr("place_order"),
                             textStyle: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -209,7 +209,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     if (state.showSuccessDialog) {
       _showSuccessDialog();
     } else if (state.status == Status.failure && state.errorMessage != null) {
-      ToastUtils.showErrorToast(message: "Order Failed: ${state.errorMessage!}");
+      ToastUtils.showErrorToast(message: "${context.tr("Order Failed")} ${state.errorMessage!}");
       Navigator.pushReplacementNamed(context, "/main");
     }
   }
@@ -224,14 +224,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             children: [
               Icon(Icons.check_circle, color: Colors.green, size: 60.sp),
               SizedBox(height: 16.h),
-              Text("success".tr()),
+              Text(context.tr("success")),
             ],
           ),
-          content: Text("order_success".tr()),
+          content: Text(context.tr("order_success")),
           actions: <Widget>[
             TextButton(
               onPressed: _onGoToHome,
-              child: Text("go_to_home".tr()),
+              child: Text(context.tr("go_to_home")),
             ),
           ],
         );
@@ -267,21 +267,21 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("confirm_order".tr()),
-          content: Text("order_confirmation".tr()),
+          title: Text(context.tr("confirm_order")),
+          content: Text(context.tr("order_confirmation")),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("cancel".tr()),
+              child: Text(context.tr("cancel")),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 _placeOrder();
               },
-              child: Text("confirm".tr()),
+              child: Text(context.tr("confirm")),
             ),
           ],
         );

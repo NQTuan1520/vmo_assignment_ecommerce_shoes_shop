@@ -72,7 +72,7 @@ class SummerySectionWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "total_cost".tr(),
+                      context.tr("total_cost"),
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
@@ -98,7 +98,7 @@ class SummerySectionWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "discount".tr(),
+                        context.tr("discount"),
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
@@ -119,7 +119,7 @@ class SummerySectionWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "final_total_cost".tr(),
+                        context.tr("final_total_cost"),
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
@@ -139,7 +139,7 @@ class SummerySectionWidget extends StatelessWidget {
                   height: 50.h,
                   width: double.infinity.w,
                   color: isCartEmpty || isLoading ? Colors.grey : colorTheme.blueButton,
-                  textButton: isLoading ? "loading".tr() : "checkout".tr(),
+                  textButton: isLoading ? context.tr("loading") : context.tr("checkout"),
                   textStyle: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

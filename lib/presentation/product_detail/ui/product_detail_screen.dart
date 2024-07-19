@@ -105,10 +105,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 previous.status != current.status && previous.isAddingToCart != current.isAddingToCart,
             listener: (context, state) {
               if (state.status == Status.success && !state.isAddingToCart) {
-                ToastUtils.showSuccessToast(message: "Item_added_to_cart_successfully".tr());
+                ToastUtils.showSuccessToast(message: context.tr("Item_added_to_cart_successfully"));
                 Navigator.of(context).pop();
               } else if (state.status == Status.failure && !state.isAddingToCart) {
-                ToastUtils.showErrorToast(message: state.errorMessage ?? "Error_adding_to_cart".tr());
+                ToastUtils.showErrorToast(message: state.errorMessage ?? context.tr("Error_adding_to_cart"));
               }
             },
             builder: (context, state) {
@@ -120,7 +120,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Select_Size_and_Color".tr(),
+                        context.tr("Select_Size_and_Color"),
                         style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 16.h),
@@ -130,7 +130,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Quantity".tr(),
+                              context.tr("Quantity"),
                               style: TextStyle(fontSize: 16.sp),
                             ),
                             Row(
@@ -168,8 +168,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             ? Colors.grey
                             : _colorTheme.blueButton,
                         textButton: state.status == Status.loading && state.isAssetLoading == false
-                            ? "Adding..."
-                            : "Add to Cart",
+                            ? context.tr("Adding...")
+                            : context.tr("Add_to_Cart"),
                         textStyle: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -192,7 +192,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 });
 
                                 if (!hasSizeSelected || !hasColorSelected) {
-                                  ToastUtils.showSuccessToast(message: "Please_select_size_and_color".tr());
+                                  ToastUtils.showSuccessToast(message: context.tr("Please_select_size_and_color"));
                                 } else {
                                   context.read<VariantsBloc>().add(AddToCart(
                                         productId: widget.product.id ?? '',

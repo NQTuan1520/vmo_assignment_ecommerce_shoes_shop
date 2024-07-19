@@ -105,13 +105,13 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
               child: BlocListener<ShippingBloc, ShippingState>(
                 listener: (context, state) {
                   if (state.status == Status.success) {
-                    ToastUtils.showSuccessToast(message: "Shipping_info_saved_successfully".tr());
+                    ToastUtils.showSuccessToast(message: context.tr("Shipping_info_saved_successfully"));
                   } else if (state.status == Status.failure) {
-                    ToastUtils.showErrorToast(message: state.errorMessage ?? "Error_occurred".tr());
+                    ToastUtils.showErrorToast(message: state.errorMessage ?? context.tr("Error_occurred"));
                   } else if (state.userStatus == Status.failure) {
-                    ToastUtils.showErrorToast(message: state.errorMessage ?? "Error_occurred".tr());
+                    ToastUtils.showErrorToast(message: state.errorMessage ?? context.tr("Error_occurred"));
                   } else if (state.userStatus == Status.success) {
-                    ToastUtils.showSuccessToast(message: "Shipping_info_loaded_successfully".tr());
+                    ToastUtils.showSuccessToast(message: context.tr("Shipping_info_loaded_successfully"));
                   }
                 },
                 child: BlocBuilder<ShippingBloc, ShippingState>(
@@ -136,7 +136,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                               focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.blueAccent),
                               ),
-                              labelText: "Name".tr(),
+                              labelText: context.tr("Name"),
                               labelStyle: TextStyle(fontSize: 18.sp),
                               prefixIcon: const Icon(Icons.person),
                               border: OutlineInputBorder(
@@ -152,7 +152,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                               focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.blueAccent),
                               ),
-                              labelText: "Email".tr(),
+                              labelText: context.tr("Email"),
                               labelStyle: TextStyle(fontSize: 18.sp),
                               prefixIcon: const Icon(Icons.email, color: Colors.blueAccent),
                               border: OutlineInputBorder(
@@ -168,7 +168,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                               focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.blueAccent),
                               ),
-                              labelText: "Street".tr(),
+                              labelText: context.tr("Street"),
                               labelStyle: TextStyle(fontSize: 18.sp),
                               prefixIcon: const Icon(Icons.location_on, color: Colors.redAccent),
                               border: OutlineInputBorder(
@@ -184,7 +184,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                               focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.blueAccent),
                               ),
-                              labelText: "City".tr(),
+                              labelText: context.tr("City"),
                               labelStyle: TextStyle(fontSize: 18.sp),
                               prefixIcon: const Icon(Icons.location_city, color: Colors.green),
                               border: OutlineInputBorder(
@@ -200,7 +200,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                               focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.blueAccent),
                               ),
-                              labelText: "State".tr(),
+                              labelText: context.tr("State"),
                               labelStyle: TextStyle(fontSize: 18.sp),
                               prefixIcon: const Icon(Icons.location_city, color: Colors.orange),
                               border: OutlineInputBorder(
@@ -216,7 +216,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                               focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.blueAccent),
                               ),
-                              labelText: "Postal_Code".tr(),
+                              labelText: context.tr("Postal_Code"),
                               labelStyle: TextStyle(fontSize: 18.sp),
                               prefixIcon: const Icon(Icons.location_city, color: Colors.purple),
                               border: OutlineInputBorder(
@@ -232,7 +232,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                               focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.blueAccent),
                               ),
-                              labelText: "Country".tr(),
+                              labelText: context.tr("Country"),
                               labelStyle: TextStyle(fontSize: 18.sp),
                               prefixIcon: const Icon(Icons.location_city, color: Colors.blue),
                               border: OutlineInputBorder(
@@ -248,7 +248,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                               focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.blueAccent),
                               ),
-                              labelText: "Phone".tr(),
+                              labelText: context.tr("Phone"),
                               labelStyle: TextStyle(fontSize: 18.sp),
                               prefixIcon: const Icon(Icons.phone, color: Colors.amberAccent),
                               border: OutlineInputBorder(
@@ -282,7 +282,7 @@ class _ShippingInfoScreenState extends State<ShippingInfoScreen> {
                                       ));
                                 },
                                 child: Text(
-                                  "Save_Shipping_Info".tr(),
+                                  context.tr("Save_Shipping_Info"),
                                   style: TextStyle(fontSize: 18.sp, color: Colors.white),
                                 ),
                               ),

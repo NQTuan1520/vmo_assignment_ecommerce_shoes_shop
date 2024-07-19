@@ -9,17 +9,17 @@ class LoginUIHelpers {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("login_required".tr()),
-          content: Text("login_required_description".tr()),
+          title: Text(context.tr("login_required")),
+          content: Text(context.tr("login_required_description")),
           actions: <Widget>[
             TextButton(
-              child: Text("cancel".tr()),
+              child: Text(context.tr("cancel")),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text("login".tr()),
+              child: Text(context.tr("login")),
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.pushNamed(
